@@ -1,0 +1,87 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    compileSdkVersion 30
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.basecleanflutter"
+        minSdkVersion 23
+        targetSdkVersion 30
+        multiDexEnabled true
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    flavorDimensions("default")
+    productFlavors {
+        create("develop") {
+            versionCode = 41
+            versionName = "1.0.0"
+            applicationIdSuffix = ".dev"
+            manifestPlaceholders["applicationName"] = "Base Flutter Dev"
+            manifestPlaceholders["host"] = "dev.chatwork.com"
+        }
+
+        create("staging") {
+            versionCode = 12
+            versionName = "1.0.3"
+            applicationIdSuffix = ".stg"
+            manifestPlaceholders["host"] = "stg.facebook.com"
+            manifestPlaceholders["applicationName"] = "Base Flutter Stg"
+        }
+
+        create("production") {
+            versionCode = 9
+            versionName = "1.0.3"
+            manifestPlaceholders["host"] = "chatwork.com"
+            manifestPlaceholders["applicationName"] = "Base Flutter"
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.multidex:multidex:2.0.1"
+}
