@@ -7,7 +7,6 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../domain/entity/unit.dart';
 import '../../domain/usecase/clear_all_user_info_use_case.dart';
-import '../../utils/deeplink/deep_link_manager.dart';
 import '../../utils/utils.dart';
 import 'base/base_bloc.dart';
 
@@ -15,7 +14,6 @@ import 'base/base_bloc.dart';
 /// useful for change theme or change language in app
 @LazySingleton()
 class AppBloc extends BaseBloc {
-  final DeepLinkManager _deepLinkManager;
   final ClearAllUserInfoUseCase _clearAllUserInfoUseCase;
   final GetHasLoginUseCase _getHasLoginUseCase;
 
@@ -25,8 +23,7 @@ class AppBloc extends BaseBloc {
   /// Output
   late Stream<Unit> onClearAllUserInfoSuccess;
 
-  AppBloc(this._deepLinkManager, this._clearAllUserInfoUseCase,
-      this._getHasLoginUseCase) {
+  AppBloc(this._clearAllUserInfoUseCase, this._getHasLoginUseCase) {
     final _clearAllUserInfoController = PublishSubject<Unit>()
       ..disposeBy(disposeBag);
     onClearAllUserInfo = () => _clearAllUserInfoController.add(Unit());
@@ -34,12 +31,6 @@ class AppBloc extends BaseBloc {
     onClearAllUserInfoSuccess = _clearAllUserInfoController.stream
         .flatMap((_) => executeFuture(_clearAllUserInfoUseCase()));
   }
-
-  Stream<DeepLinkResult> initialDeepLinkStream() =>
-      _deepLinkManager.initialDeepLinkStream();
-
-  Stream<DeepLinkResult> foregroundDeepLinkStream() =>
-      _deepLinkManager.foregroundDeepLinkStream();
 
   bool get isLoggedIn {
     return _getHasLoginUseCase();

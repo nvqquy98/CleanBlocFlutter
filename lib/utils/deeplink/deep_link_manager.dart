@@ -10,23 +10,27 @@ import '../../utils/utils.dart';
 @LazySingleton()
 class DeepLinkManager {
   /// [getInitialUri] call only once when app launch
-  Stream<DeepLinkResult> initialDeepLinkStream() =>
-      getInitialUri().asStream().flatMap(_mapToResult);
+  Future<DeepLinkResult?> getInitialDeepLink() =>
+      getInitialUri().then((uri) => Future.value(_mapToResult(uri)));
 
   /// [uriLinkStream] listen when app is being on foreground
   Stream<DeepLinkResult> foregroundDeepLinkStream() =>
-      uriLinkStream.flatMap(_mapToResult);
+      uriLinkStream.map(_mapToResult).flatMap((value) {
+        if (value == null)
+          return const Stream.empty();
+        else
+          return Stream.value(value);
+      });
 
-  Stream<DeepLinkResult> _mapToResult(Uri? uri) {
-    if (uri == null) return const Stream.empty();
+  DeepLinkResult? _mapToResult(Uri? uri) {
+    if (uri == null) return null;
     if (!uri.pathSegments.isNullOrEmpty) {
       if (uri.pathSegments.contains(resetPassword)) {
-        return Stream.value(
-            ResetPasswordDeepLink(uri.queryParameters[token] ?? ''));
+        return ResetPasswordDeepLink(uri.queryParameters[token] ?? '');
       }
     }
 
-    return Stream.value(UnknownDeepLink());
+    return UnknownDeepLink();
   }
 
   static const token = 'token';

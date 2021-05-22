@@ -93,7 +93,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i25.LoginUseCase(get<_i19.UserRepository>()));
   gh.factory<_i26.LogoutUseCase>(
       () => _i26.LogoutUseCase(get<_i19.UserRepository>()));
-  gh.lazySingleton<_i27.AppBloc>(() => _i27.AppBloc(get<_i4.DeepLinkManager>(),
+  gh.lazySingleton<_i27.AppBloc>(() => _i27.AppBloc(
       get<_i21.ClearAllUserInfoUseCase>(), get<_i23.GetHasLoginUseCase>()));
   gh.factory<_i28.HomeBloc>(() => _i28.HomeBloc(
       get<_i26.LogoutUseCase>(), get<_i22.GetCurrentUserUseCase>()));
