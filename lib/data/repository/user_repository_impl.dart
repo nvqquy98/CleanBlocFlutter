@@ -40,18 +40,10 @@ class UserRepositoryImpl implements UserRepository {
   Future<User> getCurrentUser() => _userRemoteDataSource.getCurrentUser();
 
   @override
-  Future<Unit> register(
-      String nickname,
-      String email,
-      String password,
-      String? gender,
-      String? avatarFilePath) async {
+  Future<Unit> register(String nickname, String email, String password,
+      String? gender, String? avatarFilePath) async {
     final tokenAndUser = await _userRemoteDataSource.register(
-        nickname,
-        email,
-        password,
-        gender,
-        avatarFilePath);
+        nickname, email, password, gender, avatarFilePath);
     await _saveTokenAndUser(tokenAndUser.item1, tokenAndUser.item2);
     return Unit();
   }
@@ -83,6 +75,12 @@ class UserRepositoryImpl implements UserRepository {
   User getUserPreference() => _userLocalDataSource.getUserPreference();
 
   @override
-  Future<Unit> clearAllUserInfo() =>
-      _userLocalDataSource.clearAllUserInfo();
+  Future<Unit> clearAllUserInfo() => _userLocalDataSource.clearAllUserInfo();
+
+  @override
+  Future<bool> saveIsDarkMode(bool isDarkMode) =>
+      _userLocalDataSource.saveIsDarkMode(isDarkMode);
+
+  @override
+  bool get isDarkMode => _userLocalDataSource.isDarkMode;
 }

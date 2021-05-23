@@ -1,6 +1,7 @@
-import '../../generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../generated/l10n.dart';
 
 extension ShowSnackBarBuildContextExtension on BuildContext {
   void showSnackBar(
@@ -58,5 +59,9 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
         ],
       ),
     );
+  }
+
+  void showBottomSheet(WidgetBuilder builder) {
+    showModalBottomSheet(context: this, builder: builder);
   }
 }

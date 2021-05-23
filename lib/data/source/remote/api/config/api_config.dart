@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../../../../build_config.dart';
 
 class ApiConfig {
@@ -10,8 +8,8 @@ class ApiConfig {
   static const jwtAuthorization = 'JWTAuthorization';
   static const authorization = 'Authorization';
 
-  static const _basicAuthorizationName = 'demo_name';
-  static const _basicAuthorizationPassword = 'demo_password';
+  static const basicAuthorizationName = 'demo_name';
+  static const basicAuthorizationPassword = 'demo_password';
 
   static const bearer = 'Bearer';
 
@@ -24,11 +22,5 @@ class ApiConfig {
       default:
         return _baseUrlProd;
     }
-  }
-
-  static String basicAuthenticationHeader() {
-    return 'Basic ${base64Encode(
-      utf8.encode('$_basicAuthorizationName:$_basicAuthorizationPassword'),
-    )}';
   }
 }

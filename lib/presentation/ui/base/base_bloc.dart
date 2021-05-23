@@ -1,19 +1,17 @@
-import '../../../utils/utils.dart';
-import 'package:injectable/injectable.dart';
+import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class BaseBloc {
+import '../../../utils/logic_utils.dart';
+
+abstract class BaseBloc extends ChangeNotifier {
   final DisposeBag disposeBag = DisposeBag();
 
   final _errorSubject = PublishSubject<Object>();
 
-  Sink<Object> get _errorSink => _errorSubject.sink;
-
   Stream<Object> get errorStream => _errorSubject.stream;
 
   final _loadingSubject = PublishSubject<bool>();
-
-  Sink<bool> get _loadingSink => _loadingSubject.sink;
 
   Stream<bool> get loadingStream => _loadingSubject.stream;
 
@@ -35,19 +33,24 @@ abstract class BaseBloc {
   }
 
   void emitError(Object error) {
-    _errorSink.add(error);
+    _errorSubject.addSafely(error);
   }
 
   void emitLoading(bool isLoading) {
-    _loadingSink.add(isLoading);
+    _loadingSubject.addSafely(isLoading);
   }
 
+  /// ChangeNotifier call dispose()
+  @override
   void dispose() {
-    _errorSubject.close();
-    _loadingSubject.close();
+    closeStream();
+    super.dispose();
+  }
+
+  @mustCallSuper
+  void closeStream() {
+    if (!_errorSubject.isClosed) _errorSubject.close();
+    if (!_loadingSubject.isClosed) _loadingSubject.close();
     disposeBag.dispose();
   }
 }
-
-@Injectable()
-class EmptyBloc extends BaseBloc {}

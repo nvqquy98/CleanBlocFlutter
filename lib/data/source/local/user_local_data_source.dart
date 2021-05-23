@@ -56,4 +56,9 @@ class UserLocalDataSource {
   int deleteAllUsers() => _databaseApi.deleteAllUsers();
 
   Future<Unit> clearAllUserInfo() => _appPreferences.clearUserInfo();
+
+  Future<bool> saveIsDarkMode(bool isDarkMode) =>
+      _appPreferences.saveIsDarkMode(isDarkMode);
+
+  bool get isDarkMode => _appPreferences.isDarkMode;
 }

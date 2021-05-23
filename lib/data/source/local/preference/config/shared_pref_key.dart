@@ -3,4 +3,5 @@ class SharedPrefKey {
   static const refreshToken = 'refreshToken';
   static const isLoggedIn = 'isLoggedIn';
   static const currentUser = 'currentUser';
+  static const isDarkMode = 'isDarkMode';
 }

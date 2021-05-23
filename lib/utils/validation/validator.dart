@@ -1,7 +1,7 @@
-import '../../generated/l10n.dart';
+import 'package:dartx/dartx.dart';
 
 import '../../data/source/remote/api/error/server_error_constants.dart';
-import '../../utils/utils.dart';
+import '../../generated/l10n.dart';
 
 class Validator {
   const Validator._();

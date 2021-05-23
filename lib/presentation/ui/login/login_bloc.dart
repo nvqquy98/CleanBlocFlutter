@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import '../../../data/source/remote/api/error/http_request_exception.dart';
 import '../../../domain/entity/unit.dart';
 import '../../../domain/usecase/login_use_case.dart';
-import '../../../utils/utils.dart';
+import '../../../utils/logic_utils.dart';
 import '../../../utils/validation/validator.dart';
 import '../base/base_bloc.dart';
 
@@ -33,11 +33,11 @@ class LoginBloc extends BaseBloc {
     final _onServerErrorController = PublishSubject<String?>()
       ..disposeBy(disposeBag);
 
-    emailChanged = _emailController.add;
-    passwordChanged = _passwordController.add;
-    submit = () => _submitController.add(Unit());
+    emailChanged = _emailController.addSafely;
+    passwordChanged = _passwordController.addSafely;
+    submit = () => _submitController.addSafely(Unit());
     onServerError = (HttpRequestException exception) =>
-        _onServerErrorController.add(exception.getFirstServerErrorMessage());
+        _onServerErrorController.addSafely(exception.getFirstServerErrorMessage());
 
     final Stream<String?> validationError = _submitController.stream.map((_) {
       final errors = Validator.validateEmail(_emailController.value);
@@ -48,19 +48,26 @@ class LoginBloc extends BaseBloc {
       }
     });
 
-    error = Rx.merge([_onServerErrorController.stream, validationError]);
     isButtonLoginEnable = Rx.combineLatest2(
         _emailController.stream,
         _passwordController.stream,
-        (String a, String b) => a.isNotEmpty && b.isNotEmpty);
+        (String a, String b) => a.isNotEmpty && b.isNotEmpty).share();
 
-    loginSuccess = validationError.flatMap((String? error) {
-      if (error == null) {
-        return _login(_emailController.value, _passwordController.value);
-      } else {
-        return const Stream.empty();
-      }
-    }).map((_) => Unit()).share();
+    error = Rx.merge([
+      _onServerErrorController.stream,
+      validationError,
+      isButtonLoginEnable.mapTo(null),
+    ]);
+
+    loginSuccess = validationError
+        .flatMap((String? error) {
+          if (error == null) {
+            return _login(_emailController.value, _passwordController.value);
+          } else {
+            return const Stream.empty();
+          }
+        })
+        .mapTo(Unit());
   }
 
   /// use case

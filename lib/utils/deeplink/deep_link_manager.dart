@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uni_links/uni_links.dart';
 
-import '../../utils/utils.dart';
+import '../../utils/logic_utils.dart';
 
 @LazySingleton()
 class DeepLinkManager {
