@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:basecleanflutter/domain/entity/unit.dart';
+import '../../../../domain/entity/unit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,7 +14,7 @@ class AppPreferences {
 
   AppPreferences(this._sharedPreference);
 
-  Future<bool> saveAccessToken(String token) async {
+  Future<bool> saveAccessToken(String token) {
     return _sharedPreference
         .setString(SharedPrefKey.accessToken, token)
         .catchError((error) =>
@@ -25,7 +25,7 @@ class AppPreferences {
     return _sharedPreference.getString(SharedPrefKey.accessToken) ?? '';
   }
 
-  Future<bool> saveRefreshToken(String token) async {
+  Future<bool> saveRefreshToken(String token) {
     return _sharedPreference
         .setString(SharedPrefKey.refreshToken, token)
         .catchError((error) =>
@@ -36,14 +36,18 @@ class AppPreferences {
     return _sharedPreference.getString(SharedPrefKey.refreshToken) ?? '';
   }
 
-  Future<bool> saveIsLoggedIn(bool isLoggedIn) async {
+  Future<bool> saveIsLoggedIn(bool isLoggedIn) {
     return _sharedPreference
         .setBool(SharedPrefKey.isLoggedIn, isLoggedIn)
         .catchError((error) =>
             throw SharedPrefException('Can not save isLoggedIn flag', error));
   }
 
-  Future<bool> saveCurrentUser(PreferenceUserData preferenceUserData) async {
+  bool get isLoggedIn {
+    return _sharedPreference.getBool(SharedPrefKey.isLoggedIn) ?? false;
+  }
+
+  Future<bool> saveCurrentUser(PreferenceUserData preferenceUserData) {
     return _sharedPreference
         .setString(SharedPrefKey.currentUser, json.encode(preferenceUserData))
         .catchError((error) =>
@@ -56,8 +60,15 @@ class AppPreferences {
     return PreferenceUserData.fromJson(json.decode(user));
   }
 
-  bool get isLoggedIn {
-    return _sharedPreference.getBool(SharedPrefKey.isLoggedIn) ?? false;
+  Future<bool> saveIsDarkMode(bool isDarkMode) {
+    return _sharedPreference
+        .setBool(SharedPrefKey.isDarkMode, isDarkMode)
+        .catchError((error) =>
+    throw SharedPrefException('Can not save isDarkMode flag', error));
+  }
+
+  bool get isDarkMode {
+    return _sharedPreference.getBool(SharedPrefKey.isDarkMode) ?? false;
   }
 
   Future<Unit> clearUserInfo() async {

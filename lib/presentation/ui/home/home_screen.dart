@@ -1,17 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../generated/l10n.dart';
-import '../../../utils/utils.dart';
 import '../../router/app_router.gr.dart';
-import '../base/base_screen.dart';
+import '../base/base_state_and_utils.dart';
+import '../main/main_bloc.dart';
 import 'home_bloc.dart';
 
-class HomeScreen extends BaseScreen {
-  final bool isFromLogin;
-
-  const HomeScreen({this.isFromLogin = false});
-
+class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _HomeScreenState();
@@ -19,59 +15,59 @@ class HomeScreen extends BaseScreen {
 }
 
 class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
+  final _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
-    bloc
-      ..logoutSuccess.listen((event) {
-        AutoRouter.of(context).replace(const LoginScreenRoute());
+    context.read<MainBloc>()
+      ..isReselectTab.listen((tab) {
+        if (tab == BottomBarTabIndex.home.index) {
+          if (AutoRouter.of(context).stack.length == 1)
+            _scrollToTop();
+          else
+            AutoRouter.of(context).popUntilRoot();
+        }
       }).disposeBy(disposeBag);
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(0,
+        duration: const Duration(seconds: 2), curve: Curves.easeIn);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            StreamBuilder<String>(
-                stream: bloc.testResult,
-                builder: (context, snapshot) {
-                  return Text((snapshot.hasData ? snapshot.data : '')!);
-                }),
-            ElevatedButton(
-              onPressed: bloc.cancelPreviousApiClick,
-              child: const Text('cancel previous'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: bloc.queueApiClick,
-              child: const Text('queue api'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: bloc.nonCancelApiClick,
-              child: const Text('non cancel api'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: bloc.cancelLateClick,
-              child: const Text('cancel late api'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: bloc.clearTextClick,
-              child: const Text('clear text'),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: bloc.logout,
-              child: Text(S.of(context).logout),
-            )
-          ],
+    return Column(
+      children: [
+        StreamBuilder<int>(
+            stream: context.read<MainBloc>().counter,
+            builder: (context, snapshot) {
+              return Text('Counter = ${snapshot.data}');
+            }),
+        Expanded(
+          child: ListView.builder(
+              controller: _scrollController,
+              itemCount: 100,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  child: SizedBox(
+                      height: 50, child: Center(child: Text('$index'))),
+                  onTap: () {
+                    context.read<MainBloc>().increaseCounter(value: index);
+                    AutoRouter.of(context)
+                        .push(const HomeDetailScreenRoute());
+                  },
+                );
+              }),
         ),
-      ),
+      ],
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../utils/app_color.dart';
+import '../resource/colors/app_colors.dart';
 import '../../../utils/view/common_decoration.dart';
 
 class PrimaryInputLayout extends StatelessWidget {

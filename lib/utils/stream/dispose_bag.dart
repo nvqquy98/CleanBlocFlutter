@@ -1,6 +1,6 @@
 import 'dart:async';
-import '../log/log_utils.dart';
 
+/// close all stream controllers and cancel all stream subscription
 class DisposeBag {
   final List<Object> _disposable = [];
 
@@ -11,13 +11,13 @@ class DisposeBag {
   void dispose() {
     _disposable.forEach((disposable) {
       if (disposable is StreamSubscription) {
-        printKV(tag, 'disposed $disposable');
         disposable.cancel();
       } else if (disposable is StreamController) {
-        printKV(tag, 'disposed $disposable');
         disposable.close();
       }
     });
+
+    _disposable.clear();
   }
 
   static const tag = 'DisposeBag';

@@ -31,4 +31,8 @@ abstract class UserRepository {
   User getUserPreference();
 
   Future<Unit> clearAllUserInfo();
+
+  Future<bool> saveIsDarkMode(bool isDarkMode);
+
+  bool get isDarkMode;
 }

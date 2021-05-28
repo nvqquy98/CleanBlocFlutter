@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app_color.dart';
+import '../../presentation/ui/resource/colors/app_colors.dart';
 
 class CommonDecoration {
   static BoxShadow boxShadow() => BoxShadow(

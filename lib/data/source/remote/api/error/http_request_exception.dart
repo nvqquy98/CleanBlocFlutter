@@ -1,5 +1,5 @@
-import '../../../../../utils/utils.dart';
 import '../response/error_response.dart';
+import 'package:dartx/dartx.dart';
 
 class HttpRequestException implements Exception {
   final HttpRequestExceptionKind kind;
