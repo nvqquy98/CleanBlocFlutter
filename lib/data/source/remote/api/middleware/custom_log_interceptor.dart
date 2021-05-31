@@ -1,3 +1,4 @@
+import '../config/http_request_log_config.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../../utils/log/log_utils.dart';
@@ -16,6 +17,11 @@ class CustomLogInterceptor extends InterceptorsWrapper {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    if (!HttpRequestLogConfig.enableLogInterceptor) {
+      handler.next(options);
+      return;
+    }
+
     print('************ Request ************');
     printKV('Request', '${options.method} ${options.uri}');
     if (requestHeader && options.headers.isNotEmpty) {
@@ -33,6 +39,11 @@ class CustomLogInterceptor extends InterceptorsWrapper {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
+    if (!HttpRequestLogConfig.enableLogInterceptor) {
+      handler.next(response);
+      return;
+    }
+
     print('************ Response ************');
     printKV('Status Code',
         '${response.requestOptions.method} ${response.requestOptions.uri} ${response.statusCode}');
@@ -47,6 +58,11 @@ class CustomLogInterceptor extends InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
+    if (!HttpRequestLogConfig.enableLogInterceptor) {
+      handler.next(err);
+      return;
+    }
+
     print('************ Error ************');
     if (err.response != null) {
       printKV('Status Code',

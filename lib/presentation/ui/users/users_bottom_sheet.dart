@@ -40,7 +40,7 @@ class _UsersBottomSheetState extends BaseState<UsersBottomSheet, UsersBloc> {
               child: const Text('Go to gallery')),
           ElevatedButton(
               onPressed: () {
-                  context.read<MainBloc>().resetCounter();
+                  context.read<MainBloc>().funcResetCounter();
                   AutoRouter.of(context).pop();
               },
               child: const Text('Delete counter'))

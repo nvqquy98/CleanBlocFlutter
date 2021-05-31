@@ -1,3 +1,4 @@
+import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +44,8 @@ class _CounterState extends State<Counter> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<int>(
-        stream: context.read<MainBloc>().counter,
+        stream: context.read<MainBloc>().streamCounter,
+        initialData: context.read<MainBloc>().streamCounter.values.firstOrNull,
         builder: (context, snapshot) {
           return Text('Counter = ${snapshot.data}');
         });

@@ -52,31 +52,36 @@ class SettingsBloc extends BaseBloc {
     cancelLateClick = () => _cancelLateController.addSafely(Unit());
     clearTextClick = () => _clearTextController.addSafely(Unit());
 
-    queueUser =
-        _queueApiController.stream.asyncExpand((_) => _getCurrentUser());
-    cancelPreviousUser =
-        _cancelPreviousController.stream.switchMap((_) => _getCurrentUser());
-    nonCancelUser =
-        _nonCancelController.stream.flatMap((_) => _getCurrentUser());
-    cancelLateUser =
-        _cancelLateController.stream.exhaustMap((_) => _getCurrentUser());
+    queueUser = _queueApiController.stream
+        .asyncExpand((_) => _getCurrentUser())
+        .log('queueUser');
+    cancelPreviousUser = _cancelPreviousController.stream
+        .switchMap((_) => _getCurrentUser())
+        .log('cancelPreviousUser');
+    nonCancelUser = _nonCancelController.stream
+        .flatMap((_) => _getCurrentUser())
+        .log('nonCancelUser');
+    cancelLateUser = _cancelLateController.stream
+        .exhaustMap((_) => _getCurrentUser())
+        .log('cancelLateUser');
 
     testResult = Rx.merge([
       queueUser.mapTo('queue success'),
       cancelPreviousUser.mapTo('cancel previous success'),
       nonCancelUser.mapTo('non cancel success'),
-      cancelLateUser.mapTo('cancal late success'),
+      cancelLateUser.mapTo('cancel late success'),
       _clearTextController.stream.mapTo(''),
-    ]).scan((accumulated, value, _) {
+    ]).scan<String>((accumulated, value, _) {
       if (value.isEmpty) {
         return '';
       } else {
-        return '$accumulated\n$value';
+        return '$accumulated${accumulated.isEmpty ? '' : '\n'}$value';
       }
-    }, '');
+    }, '').log('testResult');
 
     logoutSuccess = _logoutController.stream
-        .flatMap((_) => executeFuture(_logoutUseCase()));
+        .flatMap((_) => executeFuture(_logoutUseCase()))
+        .log('logoutSuccess');
   }
 
   Stream<User> _getCurrentUser() => executeFuture(_getCurrentUserUseCase());

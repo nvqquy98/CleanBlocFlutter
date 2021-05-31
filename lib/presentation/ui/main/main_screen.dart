@@ -37,7 +37,7 @@ class _MainScreenState extends BaseState<MainScreen, MainBloc> {
                       child: child,
                     ),
                     floatingActionButton: FloatingActionButton(
-                      onPressed: bloc.increaseCounter,
+                      onPressed: () => bloc.funcIncreaseCounter(1),
                       child: const Icon(Icons.add),
                     ),
                     bottomNavigationBar: BottomNavigationBar(
@@ -50,7 +50,7 @@ class _MainScreenState extends BaseState<MainScreen, MainBloc> {
                             icon: Icon(Icons.settings), label: 'Settings'),
                       ],
                       onTap: (index) {
-                        bloc.onBottomSheetTabTap(index);
+                        bloc.funcOnBottomSheetTabTap(index);
                         tabsRouter.setActiveIndex(index);
                       },
                       selectedItemColor: Colors.blue,

@@ -28,7 +28,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
   void initState() {
     super.initState();
     bloc
-      ..loginSuccess.listen((_) {
+      ..streamLoginSuccess.listen((_) {
         AutoRouter.of(context).replace(const MainScreenRoute());
       }).disposeBy(disposeBag);
   }
@@ -78,7 +78,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
       title: S.of(context).email,
       inputType: TextInputType.emailAddress,
       maxLength: 255,
-      onTextChanged: bloc.emailChanged,
+      onTextChanged: bloc.funcEmailChanged,
     );
   }
 
@@ -87,7 +87,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
         title: S.of(context).password,
         inputType: TextInputType.visiblePassword,
         maxLength: 255,
-        onTextChanged: bloc.passwordChanged);
+        onTextChanged: bloc.funcPasswordChanged);
   }
 
   Widget _loginButton() {
@@ -97,7 +97,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
 
   @override
   void onServerError(HttpRequestException exception) {
-    bloc.onServerError(exception);
+    bloc.funcOnServerError(exception);
   }
 }
 
@@ -111,13 +111,13 @@ class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool?>(
-        stream: context.read<LoginBloc>().isButtonLoginEnable,
+        stream: context.read<LoginBloc>().streamIsButtonLoginEnable,
         builder: (context, snapshot) {
           return AppButton(
               isEnable: snapshot.data ?? false,
               text: S.of(context).login,
               enableGradient: AppColors.gradient,
-              onPressed: context.read<LoginBloc>().submit);
+              onPressed: context.read<LoginBloc>().funcSubmit);
         });
   }
 }
@@ -126,7 +126,7 @@ class ErrorText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<String?>(
-        stream: context.read<LoginBloc>().error,
+        stream: context.read<LoginBloc>().streamError,
         builder: (context, snapshot) {
           return snapshot.data != null
               ? FormErrorText(error: snapshot.data!)

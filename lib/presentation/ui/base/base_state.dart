@@ -17,7 +17,7 @@ import 'base_bloc.dart';
 abstract class BaseState<T extends StatefulWidget, Bloc extends BaseBloc>
     extends State<T> {
   final Bloc bloc = GetIt.instance.get<Bloc>();
-  final disposeBag = DisposeBag();
+  get disposeBag => bloc.disposeBag;
   final _errorVisibleDuration = const Duration(seconds: 3);
 
   @override
@@ -46,7 +46,6 @@ abstract class BaseState<T extends StatefulWidget, Bloc extends BaseBloc>
 
   @override
   void dispose() {
-    disposeBag.dispose();
     bloc.closeStream();
     super.dispose();
   }

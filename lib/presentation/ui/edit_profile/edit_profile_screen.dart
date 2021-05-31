@@ -15,15 +15,13 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState
     extends BaseState<EditProfileScreen, EditProfileBloc> {
-
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: [
           StreamBuilder<int>(
-              stream: context.read<ProfileSharedBloc>().data,
-              initialData: 0,
+              stream: context.read<ProfileSharedBloc>().streamData,
               builder: (context, snapshot) {
                 return Text('data ${snapshot.data}');
               }),
@@ -34,7 +32,7 @@ class _EditProfileScreenState
             child: const Text('Go to gallery'),
           ),
           ElevatedButton(
-            onPressed: context.read<ProfileSharedBloc>().clearData,
+            onPressed: () => context.read<ProfileSharedBloc>().setData(0),
             child: const Text('clear data'),
           ),
         ],
