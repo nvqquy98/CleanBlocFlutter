@@ -54,16 +54,16 @@ class SettingsBloc extends BaseBloc {
 
     queueUser = _queueApiController.stream
         .asyncExpand((_) => _getCurrentUser())
-        .log('queueUser');
+        .log(buildLogTag('queueUser'));
     cancelPreviousUser = _cancelPreviousController.stream
         .switchMap((_) => _getCurrentUser())
-        .log('cancelPreviousUser');
+        .log(buildLogTag('cancelPreviousUser'));
     nonCancelUser = _nonCancelController.stream
         .flatMap((_) => _getCurrentUser())
-        .log('nonCancelUser');
+        .log(buildLogTag('nonCancelUser'));
     cancelLateUser = _cancelLateController.stream
         .exhaustMap((_) => _getCurrentUser())
-        .log('cancelLateUser');
+        .log(buildLogTag('cancelLateUser'));
 
     testResult = Rx.merge([
       queueUser.mapTo('queue success'),

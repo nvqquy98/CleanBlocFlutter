@@ -68,7 +68,7 @@ class StreamLogger {
       required bool onDone,
       required bool onCancel}) {
     return stream.doOnListen(() {
-      if (onListen) debug('$name is subscribe');
+      if (onListen) debug('$name is subscribed');
     }).doOnData((event) {
       if (onData) info('$name onData: $event');
     }).doOnCancel(() {
@@ -76,7 +76,7 @@ class StreamLogger {
     }).doOnError((e, _) {
       if (onError) error(e.toString());
     }).doOnDone(() {
-      if (onDone) info('$name was done');
+      if (onDone) info('$name is done');
     });
   }
 }

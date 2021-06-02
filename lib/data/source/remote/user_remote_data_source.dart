@@ -22,8 +22,6 @@ class UserRemoteDataSource {
   Future<Unit> logout() => _authApi.logout();
 
   Future<User> getCurrentUser() async {
-    /// test queue, cancellation api
-    await Future.delayed(const Duration(seconds: 5));
     final response = await _authApi.getCurrentUser();
     return _remoteUserDataMapper.mapToEntity(response.data.userData);
   }
