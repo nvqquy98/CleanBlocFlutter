@@ -14,30 +14,32 @@ class LoginBloc extends BaseBloc {
   final LoginUseCase _loginUseCase;
 
   /// Input
-  late void Function(String) emailChanged;
-  late void Function(String) passwordChanged;
-  late VoidCallback submit;
-  late Function(HttpRequestException) onServerError;
+  late void Function(String) funcEmailChanged;
+  late void Function(String) funcPasswordChanged;
+  late VoidCallback funcSubmit;
+  late Function(HttpRequestException) funcOnServerError;
 
   /// Output
-  late Stream<String?> error;
-  late Stream<bool> isButtonLoginEnable;
-  late Stream<Unit> loginSuccess;
+  late Stream<String?> streamError;
+  late Stream<bool> streamIsButtonLoginEnable;
+  late Stream<Unit> streamLoginSuccess;
 
   /// handle logic
   LoginBloc(this._loginUseCase) {
-    final _emailController = BehaviorSubject.seeded('')..disposeBy(disposeBag);
+    final _emailController = BehaviorSubject.seeded('')
+      ..disposeBy(disposeBag, '_emailController');
     final _passwordController = BehaviorSubject.seeded('')
-      ..disposeBy(disposeBag);
-    final _submitController = PublishSubject<Unit>()..disposeBy(disposeBag);
+      ..disposeBy(disposeBag, '_passwordController');
+    final _submitController = PublishSubject<Unit>()
+      ..disposeBy(disposeBag, '_submitController');
     final _onServerErrorController = PublishSubject<String?>()
-      ..disposeBy(disposeBag);
+      ..disposeBy(disposeBag, '_onServerErrorController');
 
-    emailChanged = _emailController.addSafely;
-    passwordChanged = _passwordController.addSafely;
-    submit = () => _submitController.addSafely(Unit());
-    onServerError = (HttpRequestException exception) =>
-        _onServerErrorController.addSafely(exception.getFirstServerErrorMessage());
+    funcEmailChanged = (text) => _emailController.addSafely(text, '_emailController');
+    funcPasswordChanged = _passwordController.addSafely;
+    funcSubmit = () => _submitController.addSafely(Unit());
+    funcOnServerError = (HttpRequestException exception) => _onServerErrorController
+        .addSafely(exception.getFirstServerErrorMessage());
 
     final Stream<String?> validationError = _submitController.stream.map((_) {
       final errors = Validator.validateEmail(_emailController.value);
@@ -48,26 +50,24 @@ class LoginBloc extends BaseBloc {
       }
     });
 
-    isButtonLoginEnable = Rx.combineLatest2(
+    streamIsButtonLoginEnable = Rx.combineLatest2(
         _emailController.stream,
         _passwordController.stream,
         (String a, String b) => a.isNotEmpty && b.isNotEmpty).share();
 
-    error = Rx.merge([
+    streamError = Rx.merge([
       _onServerErrorController.stream,
       validationError,
-      isButtonLoginEnable.mapTo(null),
+      streamIsButtonLoginEnable.mapTo(null),
     ]);
 
-    loginSuccess = validationError
-        .flatMap((String? error) {
-          if (error == null) {
-            return _login(_emailController.value, _passwordController.value);
-          } else {
-            return const Stream.empty();
-          }
-        })
-        .mapTo(Unit());
+    streamLoginSuccess = validationError.flatMap((String? error) {
+      if (error == null) {
+        return _login(_emailController.value, _passwordController.value);
+      } else {
+        return const Stream.empty();
+      }
+    }).mapTo(Unit());
   }
 
   /// use case

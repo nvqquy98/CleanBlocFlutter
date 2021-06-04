@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../domain/entity/unit.dart';
 import '../../../utils/logic_utils.dart';
 import '../base/base_bloc.dart';
 
@@ -9,44 +11,57 @@ import '../base/base_bloc.dart';
 @Injectable()
 class MainBloc extends BaseBloc {
   /// input
-  late void Function(int) onBottomSheetTabTap;
-
-  final _counterController = BehaviorSubject.seeded(0);
+  late void Function(int) funcOnBottomSheetTabTap;
+  late void Function(int) funcIncreaseCounter;
+  late VoidCallback funcResetCounter;
 
   /// output
-  late Stream<int> isReselectTab;
-  late Stream<int> counter;
+  late Stream<int> streamReselectedTabIndex;
+  late ReplayStream<int> streamCounter;
 
   MainBloc() {
+    /// controller
     final _onBottomSheetTabController =
         BehaviorSubject.seeded(BottomBarTabIndex.home.index)
           ..disposeBy(disposeBag);
-    onBottomSheetTabTap = _onBottomSheetTabController.addSafely;
-    isReselectTab =
-        _onBottomSheetTabController.stream.pairwise().flatMap<int>((event) {
-      if (event.first == event.last) {
-        return Stream.value(event.first);
-      } else {
-        return const Stream.empty();
-      }
-    }).share();
+    final _increaseCounterController = BehaviorSubject.seeded(0)
+      ..disposeBy(disposeBag);
+    final _resetCounterController = PublishSubject<Unit>()
+      ..disposeBy(disposeBag);
 
-    counter = _counterController.stream.shareReplay(maxSize: 1);
+    /// assign input func
+    funcOnBottomSheetTabTap = _onBottomSheetTabController.addSafely;
+    funcIncreaseCounter = _increaseCounterController.addSafely;
+    funcResetCounter = () => _resetCounterController.addSafely(Unit());
+
+    /// build output stream
+    streamReselectedTabIndex =
+        buildStreamReselectedTabIndex(_onBottomSheetTabController.stream);
+    streamCounter = buildStreamCounter(
+        _increaseCounterController.stream, _resetCounterController.stream);
   }
 
-  void increaseCounter({int value = 1}) {
-    _counterController.addSafely(_counterController.value + value);
-  }
+  Stream<int> buildStreamReselectedTabIndex(Stream<int> bottomSheetTabIndex) =>
+      bottomSheetTabIndex.pairwise().flatMap<int>((event) {
+        if (event.first == event.last) {
+          return Stream.value(event.first);
+        } else {
+          return const Stream.empty();
+        }
+      }).share();
 
-  void resetCounter() {
-    _counterController.addSafely(0);
-  }
-
-  @override
-  void closeStream() {
-    _counterController.close();
-    super.closeStream();
-  }
+  ReplayStream<int> buildStreamCounter(
+          Stream<int> increaseCounter, Stream<Unit> resetCounter) =>
+      Rx.merge<int?>([
+        increaseCounter.scan<int>(
+            (accumulated, value, index) => accumulated + value, 0),
+        resetCounter.mapTo(null)
+      ]).map((event) {
+        if (event == null)
+          return 0;
+        else
+          return event;
+      }).shareReplay(maxSize: 1);
 }
 
 enum BottomBarTabIndex { home, profile, settings }

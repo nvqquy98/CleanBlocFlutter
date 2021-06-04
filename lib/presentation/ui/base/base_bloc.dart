@@ -53,4 +53,6 @@ abstract class BaseBloc extends ChangeNotifier {
     if (!_loadingSubject.isClosed) _loadingSubject.close();
     disposeBag.dispose();
   }
+
+  String buildLogTag(String name) => '$runtimeType: $name';
 }

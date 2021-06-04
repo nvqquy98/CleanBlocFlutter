@@ -6,7 +6,7 @@ class Toolbar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool? isCloseButton;
 
-  const Toolbar({Key? key, this.title = '', this.isCloseButton = false})
+  const Toolbar({Key? key, this.title = '', this.isCloseButton})
       : super(key: key);
 
   @override

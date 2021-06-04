@@ -12,5 +12,5 @@ class Unit {
   int get hashCode => 0;
 
   @override
-  String toString() => 'dart.Unit';
+  String toString() => 'Unit';
 }

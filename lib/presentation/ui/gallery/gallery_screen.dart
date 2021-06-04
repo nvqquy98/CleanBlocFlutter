@@ -20,7 +20,7 @@ class _GalleryScreenState extends BaseState<GalleryScreen, GalleryBloc> {
         child: ElevatedButton(
           child: const Text('send data to edit profile'),
           onPressed: () {
-            context.read<ProfileSharedBloc>().sendData(100);
+            context.read<ProfileSharedBloc>().setData(100);
             AutoRouter.of(context).pop();
           },
         ),

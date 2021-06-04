@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import '../../../build_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
   void initState() {
     super.initState();
     bloc
-      ..loginSuccess.listen((_) {
+      ..streamLoginSuccess.listen((_) {
         AutoRouter.of(context).replace(const MainScreenRoute());
       }).disposeBy(disposeBag);
   }
@@ -38,7 +39,9 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
     return ChangeNotifierProvider(
       create: (_) => bloc,
       child: Scaffold(
-        appBar: Toolbar(title: S.of(context).login),
+        appBar: Toolbar(
+            title:
+                '${BuildConfig.applicationId} - ${BuildConfig.versionName}(${BuildConfig.versionCode})'),
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -76,28 +79,29 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
   PrimaryInputLayout _emailInputLayout() {
     return PrimaryInputLayout(
       title: S.of(context).email,
+      hint: 'Enter your email',
       inputType: TextInputType.emailAddress,
       maxLength: 255,
-      onTextChanged: bloc.emailChanged,
+      onTextChanged: bloc.funcEmailChanged,
     );
   }
 
   PrimaryInputLayout _passwordInputLayout() {
     return PrimaryInputLayout(
         title: S.of(context).password,
+        hint: 'Enter your password',
         inputType: TextInputType.visiblePassword,
         maxLength: 255,
-        onTextChanged: bloc.passwordChanged);
+        onTextChanged: bloc.funcPasswordChanged);
   }
 
   Widget _loginButton() {
-    
     return LoginButton();
   }
 
   @override
   void onServerError(HttpRequestException exception) {
-    bloc.onServerError(exception);
+    bloc.funcOnServerError(exception);
   }
 }
 
@@ -107,17 +111,16 @@ class LoginButton extends StatefulWidget {
 }
 
 class _LoginButtonState extends State<LoginButton> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool?>(
-        stream: context.read<LoginBloc>().isButtonLoginEnable,
+        stream: context.read<LoginBloc>().streamIsButtonLoginEnable,
         builder: (context, snapshot) {
           return AppButton(
               isEnable: snapshot.data ?? false,
               text: S.of(context).login,
               enableGradient: AppColors.gradient,
-              onPressed: context.read<LoginBloc>().submit);
+              onPressed: context.read<LoginBloc>().funcSubmit);
         });
   }
 }
@@ -126,7 +129,7 @@ class ErrorText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<String?>(
-        stream: context.read<LoginBloc>().error,
+        stream: context.read<LoginBloc>().streamError,
         builder: (context, snapshot) {
           return snapshot.data != null
               ? FormErrorText(error: snapshot.data!)

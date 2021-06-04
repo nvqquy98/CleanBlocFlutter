@@ -6,6 +6,7 @@ import '../../router/app_router.gr.dart';
 import '../base/base_state_and_utils.dart';
 import '../main/main_bloc.dart';
 import 'home_bloc.dart';
+import 'package:dartx/dartx.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
   void initState() {
     super.initState();
     context.read<MainBloc>()
-      ..isReselectTab.listen((tab) {
+      ..streamReselectedTabIndex.listen((tab) {
         if (tab == BottomBarTabIndex.home.index) {
           if (AutoRouter.of(context).stack.length == 1)
             _scrollToTop();
@@ -41,7 +42,9 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
     return Column(
       children: [
         StreamBuilder<int>(
-            stream: context.read<MainBloc>().counter,
+            stream: context.read<MainBloc>().streamCounter,
+            initialData:
+                context.read<MainBloc>().streamCounter.values.firstOrNull,
             builder: (context, snapshot) {
               return Text('Counter = ${snapshot.data}');
             }),
@@ -54,9 +57,8 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
                   child: SizedBox(
                       height: 50, child: Center(child: Text('$index'))),
                   onTap: () {
-                    context.read<MainBloc>().increaseCounter(value: index);
-                    AutoRouter.of(context)
-                        .push(const HomeDetailScreenRoute());
+                    context.read<MainBloc>().funcIncreaseCounter(index);
+                    AutoRouter.of(context).push(const HomeDetailScreenRoute());
                   },
                 );
               }),

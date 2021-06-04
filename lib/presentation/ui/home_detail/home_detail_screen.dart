@@ -5,6 +5,7 @@ import '../base/base_state_and_utils.dart';
 import '../main/main_bloc.dart';
 import '../users/users_bottom_sheet.dart';
 import 'home_detail_bloc.dart';
+import 'package:dartx/dartx.dart';
 
 class HomeDetailScreen extends StatefulWidget {
   const HomeDetailScreen({Key? key}) : super(key: key);
@@ -27,7 +28,9 @@ class _HomeDetailState extends BaseState<HomeDetailScreen, HomeDetailBloc> {
                 return Text('call back from bottom sheet: ${snapshot.data}');
               }),
           StreamBuilder<int>(
-              stream: context.read<MainBloc>().counter,
+              stream: context.read<MainBloc>().streamCounter,
+              initialData:
+                  context.read<MainBloc>().streamCounter.values.firstOrNull,
               builder: (context, snapshot) {
                 return Text('Counter = ${snapshot.data}');
               }),

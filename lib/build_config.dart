@@ -6,7 +6,7 @@ class BuildConfig {
   static String versionCode = '';
   static String applicationId = '';
 
-  Future<String> getVersionName() async {
+  static Future<String> getVersionName() async {
     if (versionName.isNotEmpty) return versionName;
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     versionName = packageInfo.version;
@@ -14,14 +14,14 @@ class BuildConfig {
   }
 
   /// android: version code, ios: build
-  Future<String> getVersionCode() async {
+  static Future<String> getVersionCode() async {
     if (versionCode.isNotEmpty) return versionCode;
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     versionCode = packageInfo.buildNumber;
     return packageInfo.buildNumber;
   }
 
-  Future<String> getPackageName() async {
+  static Future<String> getPackageName() async {
     if (applicationId.isNotEmpty) return applicationId;
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     applicationId = packageInfo.packageName;
