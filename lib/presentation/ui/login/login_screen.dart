@@ -76,6 +76,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
   PrimaryInputLayout _emailInputLayout() {
     return PrimaryInputLayout(
       title: S.of(context).email,
+      hint: 'Enter your email',
       inputType: TextInputType.emailAddress,
       maxLength: 255,
       onTextChanged: bloc.funcEmailChanged,
@@ -85,6 +86,7 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
   PrimaryInputLayout _passwordInputLayout() {
     return PrimaryInputLayout(
         title: S.of(context).password,
+        hint: 'Enter your password',
         inputType: TextInputType.visiblePassword,
         maxLength: 255,
         onTextChanged: bloc.funcPasswordChanged);
