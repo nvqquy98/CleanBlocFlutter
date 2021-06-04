@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'build_config.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,14 +34,19 @@ class App {
     /// config stream logging
     StreamLoggerConfig.enableStreamLogger = kDebugMode;
 
-    await SystemChrome.setEnabledSystemUIOverlays(
-        [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+    await Future.wait([
+      SystemChrome.setEnabledSystemUIOverlays(
+          [SystemUiOverlay.bottom, SystemUiOverlay.top]),
+      BuildConfig.getPackageName(),
+      BuildConfig.getVersionCode(),
+      BuildConfig.getVersionName()
+    ]);
   }
 
   static _runMyApp() async {
     final deepLinkManager = GetIt.instance.get<DeepLinkManager>();
     final deepLinkResult =
-        await deepLinkManager.getInitialDeepLink().catchError((e) => null);
+    await deepLinkManager.getInitialDeepLink().catchError((e) => null);
     runApp(MyApp(deepLinkResult));
   }
 

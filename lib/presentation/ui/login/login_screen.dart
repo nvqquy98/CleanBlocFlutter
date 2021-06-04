@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import '../../../build_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,9 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
     return ChangeNotifierProvider(
       create: (_) => bloc,
       child: Scaffold(
-        appBar: Toolbar(title: S.of(context).login),
+        appBar: Toolbar(
+            title:
+                '${BuildConfig.applicationId} - ${BuildConfig.versionName}(${BuildConfig.versionCode})'),
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -93,7 +96,6 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
   }
 
   Widget _loginButton() {
-    
     return LoginButton();
   }
 
@@ -109,7 +111,6 @@ class LoginButton extends StatefulWidget {
 }
 
 class _LoginButtonState extends State<LoginButton> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool?>(
