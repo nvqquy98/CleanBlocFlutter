@@ -21,8 +21,6 @@ class StreamLoggerConfig {
 class StreamLogger {
   /// if we need log events of one or some specific stream instead of all streams,
   /// we can set [needLog = false] here and set [needLog = true] on the specific stream
-  static const bool needLogOnDispose = true;
-  static const bool needLogOnAddEvent = true;
   static const bool needLogOnListen = true;
   static const bool needLogOnData = true;
   static const bool needLogOnError = true;
@@ -30,7 +28,10 @@ class StreamLogger {
   static const bool needLogOnCancel = true;
   static const bool _logTime = true;
 
-  static final _logger =
+  static final _logger = Logger(printer: PrettyPrinter(methodCount: 0));
+
+  /// useful for logging onData
+  static final _timeStampLogger =
       Logger(printer: PrettyPrinter(printTime: _logTime, methodCount: 0));
 
   const StreamLogger._();
@@ -44,21 +45,11 @@ class StreamLogger {
   }
 
   static void info(String message) {
-    if (StreamLoggerConfig.enableStreamLogger) _logger.i(message);
+    if (StreamLoggerConfig.enableStreamLogger) _timeStampLogger.i(message);
   }
 
   static void warn(String message) {
     if (StreamLoggerConfig.enableStreamLogger) _logger.w(message);
-  }
-
-  static void logOnAddEvent(
-      String? controllerName, Object? event, bool needLog) {
-    if (controllerName != null && needLog)
-      info('$controllerName add event $event');
-  }
-
-  static void logOnDispose(String? disposableName, bool needLog) {
-    if (disposableName != null && needLog) warn('Disposed $disposableName');
   }
 
   static Stream<T> logOnNotification<T>(Stream<T> stream, String name,

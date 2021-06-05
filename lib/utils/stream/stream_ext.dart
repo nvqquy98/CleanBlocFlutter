@@ -3,9 +3,7 @@ import 'dart:async';
 import 'stream_logger.dart';
 
 extension StreamControllerExt on StreamController {
-  void addSafely(Object? event,
-      [String? name, bool needLog = StreamLogger.needLogOnAddEvent]) {
-    StreamLogger.logOnAddEvent(name, event, needLog);
+  void addSafely(Object? event) {
     if (!isClosed) {
       add(event);
     } else {

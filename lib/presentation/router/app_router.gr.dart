@@ -7,12 +7,13 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
+import '../../domain/entity/notification.dart' as _i13;
 import '../ui/edit_profile/edit_profile_screen.dart' as _i11;
 import '../ui/gallery/gallery_screen.dart' as _i6;
 import '../ui/home/home_screen.dart' as _i8;
 import '../ui/home_detail/home_detail_screen.dart' as _i9;
 import '../ui/login/login_screen.dart' as _i3;
-import '../ui/main/main_bloc.dart' as _i13;
+import '../ui/main/main_bloc.dart' as _i14;
 import '../ui/main/main_screen.dart' as _i5;
 import '../ui/map/map_screen.dart' as _i7;
 import '../ui/profile/profile_screen.dart' as _i10;
@@ -48,8 +49,11 @@ class AppRouter extends _i1.RootStackRouter {
         }),
     GalleryScreenRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
-        builder: (_) {
-          return _i6.GalleryScreen();
+        builder: (data) {
+          final args = data.argsAs<GalleryScreenRouteArgs>(
+              orElse: () => const GalleryScreenRouteArgs());
+          return _i6.GalleryScreen(
+              key: args.key, notification: args.notification);
         }),
     MapScreenRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -158,14 +162,25 @@ class MainScreenRoute extends _i1.PageRouteInfo {
   static const String name = 'MainScreenRoute';
 }
 
-class GalleryScreenRoute extends _i1.PageRouteInfo {
-  const GalleryScreenRoute() : super(name, path: '/gallery-screen');
+class GalleryScreenRoute extends _i1.PageRouteInfo<GalleryScreenRouteArgs> {
+  GalleryScreenRoute({_i2.Key? key, _i13.Notification? notification})
+      : super(name,
+            path: '/gallery-screen',
+            args: GalleryScreenRouteArgs(key: key, notification: notification));
 
   static const String name = 'GalleryScreenRoute';
 }
 
+class GalleryScreenRouteArgs {
+  const GalleryScreenRouteArgs({this.key, this.notification});
+
+  final _i2.Key? key;
+
+  final _i13.Notification? notification;
+}
+
 class MapScreenRoute extends _i1.PageRouteInfo<MapScreenRouteArgs> {
-  MapScreenRoute({_i2.Key? key, required _i13.MainBloc mainBloc})
+  MapScreenRoute({_i2.Key? key, required _i14.MainBloc mainBloc})
       : super(name,
             path: '/map-screen',
             args: MapScreenRouteArgs(key: key, mainBloc: mainBloc));
@@ -178,7 +193,7 @@ class MapScreenRouteArgs {
 
   final _i2.Key? key;
 
-  final _i13.MainBloc mainBloc;
+  final _i14.MainBloc mainBloc;
 }
 
 class BottomTabHomeRouter extends _i1.PageRouteInfo {

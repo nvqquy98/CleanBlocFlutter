@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../resource/colors/app_colors.dart';
+import '../../resource/colors/app_colors.dart';
 
 class FormErrorText extends StatelessWidget {
   final String error;

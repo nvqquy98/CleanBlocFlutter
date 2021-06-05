@@ -78,9 +78,6 @@ class UserRepositoryImpl implements UserRepository {
   Future<Unit> clearAllUserInfo() => _userLocalDataSource.clearAllUserInfo();
 
   @override
-  Future<bool> saveIsDarkMode(bool isDarkMode) =>
-      _userLocalDataSource.saveIsDarkMode(isDarkMode);
-
-  @override
-  bool get isDarkMode => _userLocalDataSource.isDarkMode;
+  Future<bool> saveDeviceToken(String deviceToken) =>
+      _userLocalDataSource.saveDeviceToken(deviceToken);
 }

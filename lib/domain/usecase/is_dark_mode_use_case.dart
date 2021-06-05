@@ -1,11 +1,12 @@
-import '../repository/user_repository.dart';
+import '../repository/app_repository.dart';
+
 import 'package:injectable/injectable.dart';
 
 @Injectable()
 class IsDarkModeUseCase {
-  final UserRepository _userRepository;
+  final AppRepository _appRepository;
 
-  IsDarkModeUseCase(this._userRepository);
+  IsDarkModeUseCase(this._appRepository);
 
-  bool call() => _userRepository.isDarkMode;
+  bool call() => _appRepository.isDarkMode;
 }

@@ -31,6 +31,11 @@ class UserLocalDataSource {
   Future<bool> saveRefreshToken(String token) =>
       _appPreferences.saveRefreshToken(token);
 
+  Future<bool> saveDeviceToken(String token) =>
+      _appPreferences.saveDeviceToken(token);
+
+  String get deviceToken => _appPreferences.deviceToken;
+
   Future<bool> saveIsLoggedIn(bool isLoggedIn) =>
       _appPreferences.saveIsLoggedIn(isLoggedIn);
 
@@ -55,10 +60,5 @@ class UserLocalDataSource {
 
   int deleteAllUsers() => _databaseApi.deleteAllUsers();
 
-  Future<Unit> clearAllUserInfo() => _appPreferences.clearUserInfo();
-
-  Future<bool> saveIsDarkMode(bool isDarkMode) =>
-      _appPreferences.saveIsDarkMode(isDarkMode);
-
-  bool get isDarkMode => _appPreferences.isDarkMode;
+  Future<Unit> clearAllUserInfo() => _appPreferences.clearAllUserInfo();
 }

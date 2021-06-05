@@ -32,7 +32,5 @@ abstract class UserRepository {
 
   Future<Unit> clearAllUserInfo();
 
-  Future<bool> saveIsDarkMode(bool isDarkMode);
-
-  bool get isDarkMode;
+  Future<bool> saveDeviceToken(String deviceToken);
 }

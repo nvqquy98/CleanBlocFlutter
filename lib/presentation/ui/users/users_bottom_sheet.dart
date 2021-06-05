@@ -35,7 +35,7 @@ class _UsersBottomSheetState extends BaseState<UsersBottomSheet, UsersBloc> {
               child: const Text('send data to home detail')),
           ElevatedButton(
               onPressed: () {
-                AutoRouter.of(context).push(const GalleryScreenRoute());
+                AutoRouter.of(context).push(GalleryScreenRoute());
               },
               child: const Text('Go to gallery')),
           ElevatedButton(

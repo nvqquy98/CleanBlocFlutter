@@ -15,6 +15,6 @@ class ProfileSharedBloc extends BaseBloc {
 
   ProfileSharedBloc() {
     _dataController = BehaviorSubject.seeded(0)
-      ..disposeBy(disposeBag, '_dataController');
+      ..disposeBy(disposeBag);
   }
 }

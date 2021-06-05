@@ -1,18 +1,18 @@
 import 'package:auto_route/auto_route.dart';
-import 'resource/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../utils/deeplink/deep_link_manager.dart';
 import '../../utils/logic_utils.dart';
+import '../helper/deeplink/deep_link.dart';
 import '../router/app_router.gr.dart';
 import '../router/app_router_observer.dart';
 import 'app_bloc.dart';
 import 'base/base_state.dart';
 import 'edit_profile/profile_shared_bloc.dart';
+import 'resource/themes/app_themes.dart';
 
 class MyApp extends StatefulWidget {
   final DeepLinkResult? deepLinkResult;
