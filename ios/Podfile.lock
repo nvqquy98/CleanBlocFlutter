@@ -2,7 +2,71 @@ PODS:
   - connectivity_plus (0.0.1):
     - Flutter
     - Reachability
+  - Firebase/CoreOnly (8.0.0):
+    - FirebaseCore (= 8.0.0)
+  - Firebase/Messaging (8.0.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 8.0.0)
+  - firebase_core (1.2.1):
+    - Firebase/CoreOnly (= 8.0.0)
+    - Flutter
+  - firebase_messaging (10.0.1):
+    - Firebase/Messaging (= 8.0.0)
+    - firebase_core
+    - Flutter
+  - FirebaseCore (8.0.0):
+    - FirebaseCoreDiagnostics (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+  - FirebaseCoreDiagnostics (8.1.0):
+    - GoogleDataTransport (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+    - nanopb (~> 2.30908.0)
+  - FirebaseInstallations (8.1.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
+    - PromisesObjC (~> 1.2)
+  - FirebaseMessaging (8.0.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Reachability (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
   - Flutter (1.0.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - GoogleDataTransport (9.0.1):
+    - GoogleUtilities/Environment (~> 7.2)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/AppDelegateSwizzler (7.4.1):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.4.1):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (7.4.1):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.4.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.4.1)"
+  - GoogleUtilities/Reachability (7.4.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.4.1):
+    - GoogleUtilities/Logger
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
   - ObjectBox (1.6.0)
   - objectbox_flutter_libs (0.0.1):
     - Flutter
@@ -11,31 +75,55 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
+  - PromisesObjC (1.2.12)
   - Reachability (3.2)
   - shared_preferences (0.0.1):
     - Flutter
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
   - uni_links (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - objectbox_flutter_libs (from `.symlinks/plugins/objectbox_flutter_libs/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - uni_links (from `.symlinks/plugins/uni_links/ios`)
 
 SPEC REPOS:
   trunk:
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - FMDB
+    - GoogleDataTransport
+    - GoogleUtilities
+    - nanopb
     - ObjectBox
+    - PromisesObjC
     - Reachability
 
 EXTERNAL SOURCES:
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
   Flutter:
     :path: Flutter
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   objectbox_flutter_libs:
     :path: ".symlinks/plugins/objectbox_flutter_libs/ios"
   package_info:
@@ -44,18 +132,34 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
   uni_links:
     :path: ".symlinks/plugins/uni_links/ios"
 
 SPEC CHECKSUMS:
   connectivity_plus: f5e5e0b894ec1187bfab9816d6c2f034da8d46da
+  Firebase: 73c3e3b216ec1ecbc54d2ffdd4670c65c749edb1
+  firebase_core: a9b69f8583dc992f1b15f376b4918537c1804bb4
+  firebase_messaging: f45b468c889bdc3191bc47368329ae22cda536da
+  FirebaseCore: 3f09591d51292843e2a46f18358d60bf4e996255
+  FirebaseCoreDiagnostics: 3e249cee3de5c5f9cfd6cc2a19997231286fec11
+  FirebaseInstallations: 7f31798a8198c354eadcb87176d2090b62edc187
+  FirebaseMessaging: 1a33b4af3c8042ed6ddacb6c031894af2064bfab
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GoogleDataTransport: 04c3e9a480bbcaa2ec3f5d27f1cdeb6a92f20c8d
+  GoogleUtilities: f8a43108b38a68eebe8b3540e1f4f2d28843ce20
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   ObjectBox: a181cc5fb47e0a6ec60754d34dc49f40dc17829e
   objectbox_flutter_libs: 511c59b863bc45abc7f6f338499e4a50e9aa5f1d
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
 
 PODFILE CHECKSUM: dc34fec874016e1b888a5936297a38e59772451d

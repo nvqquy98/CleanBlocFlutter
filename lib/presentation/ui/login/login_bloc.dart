@@ -27,15 +27,15 @@ class LoginBloc extends BaseBloc {
   /// handle logic
   LoginBloc(this._loginUseCase) {
     final _emailController = BehaviorSubject.seeded('')
-      ..disposeBy(disposeBag, '_emailController');
+      ..disposeBy(disposeBag);
     final _passwordController = BehaviorSubject.seeded('')
-      ..disposeBy(disposeBag, '_passwordController');
+      ..disposeBy(disposeBag);
     final _submitController = PublishSubject<Unit>()
-      ..disposeBy(disposeBag, '_submitController');
+      ..disposeBy(disposeBag);
     final _onServerErrorController = PublishSubject<String?>()
-      ..disposeBy(disposeBag, '_onServerErrorController');
+      ..disposeBy(disposeBag);
 
-    funcEmailChanged = (text) => _emailController.addSafely(text, '_emailController');
+    funcEmailChanged = _emailController.addSafely;
     funcPasswordChanged = _passwordController.addSafely;
     funcSubmit = () => _submitController.addSafely(Unit());
     funcOnServerError = (HttpRequestException exception) => _onServerErrorController

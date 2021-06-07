@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/log/log_utils.dart';
+import '../../helper/firebase_messaging/firebase_messaging.dart';
 import '../../router/app_router.gr.dart';
-import '../base/base_state.dart';
+import '../base/base_state_and_utils.dart';
 import 'main_bloc.dart';
 
 class MainScreen extends StatefulWidget {
@@ -19,12 +22,33 @@ class _MainScreenState extends BaseState<MainScreen, MainBloc> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _triggerNotification();
+  }
+
+  void _triggerNotification() {
+    final firebaseMessagingManager =
+        GetIt.instance.get<FirebaseMessagingManager>();
+    firebaseMessagingManager.requestPermission();
+    firebaseMessagingManager.notification.listen((notification) {
+      printKV(FirebaseMessagingManager.tag, 'onNewIntent: $notification');
+      final routes = FirebaseMessagingUtils.parseNotification(notification);
+      if (routes != null) {
+        AutoRouter.of(context).pushAll(routes);
+      }
+    }).disposeBy(disposeBag);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => bloc,
       child: SafeArea(
         child: Scaffold(
-          appBar: AppBar(title: const Text('AppBar Test Dark Mode'),),
+          appBar: AppBar(
+            title: const Text('AppBar Test Dark Mode'),
+          ),
           body: Stack(
             children: [
               AutoTabsRouter(

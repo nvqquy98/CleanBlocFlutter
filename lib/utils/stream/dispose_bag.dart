@@ -1,57 +1,39 @@
 import 'dart:async';
 
-import 'stream_logger.dart';
+import '../log/log_utils.dart';
 
-/// close all stream controllers and cancel all stream subscription
 class DisposeBag {
-  final List<Disposable> _disposable = [];
+  final List<Object> _disposable = [];
 
-  void addDisposable(Object disposable, {String? name, required bool needLog}) {
-    _disposable.add(Disposable(disposable, name: name, needLog: needLog));
+  void addDisposable(Object disposable) {
+    _disposable.add(disposable);
   }
 
   void dispose() {
     _disposable.forEach((disposable) {
-      disposable.dispose();
+      if (disposable is StreamSubscription) {
+        printKV(tag, 'canceled $disposable');
+        disposable.cancel();
+      } else if (disposable is StreamController) {
+        printKV(tag, 'closed $disposable');
+        disposable.close();
+      }
     });
 
     _disposable.clear();
   }
+
+  static const tag = 'DisposeBag';
 }
 
 extension DisposableStreamSubscription on StreamSubscription {
-  void disposeBy(DisposeBag disposeBag,
-      [String? name, bool needLog = StreamLogger.needLogOnDispose]) {
-    disposeBag.addDisposable(this, name: name, needLog: needLog);
+  void disposeBy(DisposeBag disposeBag) {
+    disposeBag.addDisposable(this);
   }
 }
 
 extension DisposableStreamController on StreamController {
-  void disposeBy(DisposeBag disposeBag,
-      [String? name, bool needLog = StreamLogger.needLogOnDispose]) {
-    disposeBag.addDisposable(this, name: name, needLog: needLog);
-  }
-}
-
-class Disposable {
-  final Object disposable;
-  final String? name;
-  final bool needLog;
-
-  const Disposable(this.disposable, {this.name, required this.needLog});
-
-  void dispose() {
-    if (disposable is StreamSubscription) {
-      (disposable as StreamSubscription)
-          .cancel()
-          .then((value) => StreamLogger.logOnDispose(name, needLog));
-    } else if (disposable is StreamController) {
-      (disposable as StreamController)
-          .close()
-          .then((value) => StreamLogger.logOnDispose(name, needLog));
-    } else {
-      StreamLogger.error(
-          '$disposable${name != null ? '($name)' : ''} is neither a StreamSubscription nor a StreamController');
-    }
+  void disposeBy(DisposeBag disposeBag) {
+    disposeBag.addDisposable(this);
   }
 }

@@ -2,6 +2,12 @@
 
 A base Flutter application using clean architecture and bloc pattern developed by nguyen.thanh.minh-b@sun-asterisk.com
 
+## v3 CHANGE_LOG
+- Stream Logger help logging events when working with Stream
+- Improve CustomLogInterceptor. Now, we can enable/disable log interceptor
+- Config multiple flavors for iOS
+- Implement push notification via FCM (integrated for Android only, please follow: https://firebase.flutter.dev/docs/messaging/apple-integration/)
+
 ## v2 CHANGE_LOG
 - Demo nested navigation using Auto Route [MainScreen]
 - Use Provider to pass bloc to child widget in same screen [LoginScreen]

@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import '../resource/colors/app_colors.dart';
+import '../../resource/colors/app_colors.dart';
 
 class Toolbar extends StatelessWidget with PreferredSizeWidget {
   final String title;

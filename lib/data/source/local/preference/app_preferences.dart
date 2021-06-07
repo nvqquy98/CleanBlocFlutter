@@ -71,7 +71,18 @@ class AppPreferences {
     return _sharedPreference.getBool(SharedPrefKey.isDarkMode) ?? false;
   }
 
-  Future<Unit> clearUserInfo() async {
+  Future<bool> saveDeviceToken(String token) {
+    return _sharedPreference
+        .setString(SharedPrefKey.deviceToken, token)
+        .catchError((error) =>
+    throw SharedPrefException('Can not save device token', error));
+  }
+
+  String get deviceToken {
+    return _sharedPreference.getString(SharedPrefKey.deviceToken) ?? '';
+  }
+
+  Future<Unit> clearAllUserInfo() async {
     await Future.wait([
       _sharedPreference.remove(SharedPrefKey.currentUser),
       _sharedPreference.remove(SharedPrefKey.isLoggedIn),

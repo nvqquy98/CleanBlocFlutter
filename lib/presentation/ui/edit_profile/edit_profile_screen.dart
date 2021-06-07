@@ -27,7 +27,7 @@ class _EditProfileScreenState
               }),
           ElevatedButton(
             onPressed: () {
-              AutoRouter.of(context).push(const GalleryScreenRoute());
+              AutoRouter.of(context).push(GalleryScreenRoute());
             },
             child: const Text('Go to gallery'),
           ),

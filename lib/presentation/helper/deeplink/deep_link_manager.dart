@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uni_links/uni_links.dart';
 
-import '../../utils/logic_utils.dart';
+import '../../../utils/logic_utils.dart';
+import 'deep_link_result.dart';
 
 @LazySingleton()
 class DeepLinkManager {
@@ -35,17 +35,4 @@ class DeepLinkManager {
 
   static const token = 'token';
   static const resetPassword = 'reset-password';
-}
-
-@sealed
-abstract class DeepLinkResult {}
-
-class UnknownDeepLink extends DeepLinkResult {
-  UnknownDeepLink();
-}
-
-class ResetPasswordDeepLink extends DeepLinkResult {
-  final String resetPasswordToken;
-
-  ResetPasswordDeepLink(this.resetPasswordToken);
 }

@@ -1,12 +1,13 @@
-import '../repository/user_repository.dart';
 import 'package:injectable/injectable.dart';
+
+import '../repository/app_repository.dart';
 
 @Injectable()
 class SaveIsDarkModeUseCase {
-  final UserRepository _userRepository;
+  final AppRepository _appRepository;
 
-  SaveIsDarkModeUseCase(this._userRepository);
+  SaveIsDarkModeUseCase(this._appRepository);
 
   Future<bool> call(bool isDarkMode) =>
-      _userRepository.saveIsDarkMode(isDarkMode);
+      _appRepository.saveIsDarkMode(isDarkMode);
 }

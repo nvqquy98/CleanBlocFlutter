@@ -1,18 +1,18 @@
 import 'package:auto_route/auto_route.dart';
-import '../../../build_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../build_config.dart';
 import '../../../data/source/remote/api/error/http_request_exception.dart';
 import '../../../generated/l10n.dart';
-import '../resource/colors/app_colors.dart';
 import '../../../utils/logic_utils.dart';
 import '../../router/app_router.gr.dart';
 import '../base/base_state.dart';
-import '../custom_view/app_button.dart';
-import '../custom_view/form_error_text.dart';
-import '../custom_view/primary_input_layout.dart';
-import '../custom_view/toolbar.dart';
+import '../custom_view/button/app_button.dart';
+import '../custom_view/text/form_error_text.dart';
+import '../custom_view/text_field/primary_input_layout.dart';
+import '../custom_view/view_group/toolbar.dart';
+import '../resource/colors/app_colors.dart';
 import 'login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {

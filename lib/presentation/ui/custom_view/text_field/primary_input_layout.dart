@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../resource/colors/app_colors.dart';
-import '../../../utils/view/common_decoration.dart';
+import '../../resource/colors/app_colors.dart';
+import '../decoration/box_shadow.dart';
 
 class PrimaryInputLayout extends StatefulWidget {
   final String title;
@@ -40,7 +40,7 @@ class _PrimaryInputLayoutState extends State<PrimaryInputLayout> {
         decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [CommonDecoration.boxShadow()]),
+            boxShadow: [boxShadow()]),
         child: Column(
           children: [
             Text(
