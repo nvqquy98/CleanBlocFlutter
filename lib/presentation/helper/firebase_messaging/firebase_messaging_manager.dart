@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:rxdart/rxdart.dart' hide Notification;
 
 import '../../../data/source/remote/model/mapper/remote_notification_data_mapper.dart';
@@ -50,14 +51,15 @@ class FirebaseMessagingManager {
     final init = InitializationSettings(android: androidInit, iOS: iOSInit);
 
     /// onNewToken
+    unawaited(_messaging.getToken().then(_saveDeviceToken));
     _messaging.onTokenRefresh.listen(_saveDeviceToken);
 
+    /// init local notification
     await Future.wait([
       FlutterLocalNotificationsPlugin().initialize(
         init,
         onSelectNotification: _onSelectNotification,
       ),
-      _messaging.getToken().then(_saveDeviceToken)
     ]);
 
     /// Set the background messaging handler early on
@@ -120,7 +122,7 @@ class FirebaseMessagingManager {
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
       printKV(tag, 'onMessage ${remoteMessage.notification?.title}');
       _sendNotification(remoteMessage);
-    });
+    }, onError: print);
 
     /// handle user click notification when app on background
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
