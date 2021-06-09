@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+import '../../../navigation/app_navigator.dart';
 import 'package:flutter/material.dart';
 import '../../resource/colors/app_colors.dart';
 
@@ -27,7 +27,7 @@ class Toolbar extends StatelessWidget with PreferredSizeWidget {
           color: AppColors.black,
         ),
         onPressed: () {
-          AutoRouter.of(context).pop();
+          AppNavigator.of(context).pop();
         },
       ) : null,
     );

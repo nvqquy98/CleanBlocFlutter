@@ -17,6 +17,7 @@ class MainBloc extends BaseBloc {
 
   /// output
   late Stream<int> streamReselectedTabIndex;
+  late ValueStream<int> bottomTabIndex;
   late ReplayStream<int> streamCounter;
 
   MainBloc() {
@@ -35,6 +36,7 @@ class MainBloc extends BaseBloc {
     funcResetCounter = () => _resetCounterController.addSafely(Unit());
 
     /// build output stream
+    bottomTabIndex = _onBottomSheetTabController.stream;
     streamReselectedTabIndex =
         buildStreamReselectedTabIndex(_onBottomSheetTabController.stream);
     streamCounter = buildStreamCounter(

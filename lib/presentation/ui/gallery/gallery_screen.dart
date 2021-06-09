@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+import '../../navigation/app_navigator.dart';
 import 'package:flutter/material.dart' hide Notification;
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class _GalleryScreenState extends BaseState<GalleryScreen, GalleryBloc> {
               child: const Text('send data to edit profile'),
               onPressed: () {
                 context.read<ProfileSharedBloc>().setData(100);
-                AutoRouter.of(context).pop();
+                AppNavigator.of(context).pop();
               },
             ),
           ],

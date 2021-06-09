@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+import '../../navigation/app_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
@@ -118,6 +118,6 @@ abstract class BaseState<T extends StatefulWidget, Bloc extends BaseBloc>
   }
 
   void hideLoading() {
-    AutoRouter.of(context).root.pop();
+    AppNavigator.of(context).pop();
   }
 }

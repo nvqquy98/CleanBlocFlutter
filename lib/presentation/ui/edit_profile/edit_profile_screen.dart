@@ -1,14 +1,16 @@
-import 'package:auto_route/auto_route.dart';
+import '../../navigation/app_navigator.dart';
+import '../gallery/gallery_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../router/app_router.gr.dart';
 import '../base/base_state_and_utils.dart';
 import 'edit_profile_bloc.dart';
 import 'profile_shared_bloc.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen();
+
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
@@ -27,7 +29,7 @@ class _EditProfileScreenState
               }),
           ElevatedButton(
             onPressed: () {
-              AutoRouter.of(context).push(GalleryScreenRoute());
+              AppNavigator.of(context).push(const GalleryScreen());
             },
             child: const Text('Go to gallery'),
           ),

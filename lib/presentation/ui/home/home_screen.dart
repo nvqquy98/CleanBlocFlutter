@@ -1,14 +1,16 @@
-import 'package:auto_route/auto_route.dart';
+import '../../navigation/app_navigator.dart';
+import '../home_detail/home_detail_screen.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../router/app_router.gr.dart';
 import '../base/base_state_and_utils.dart';
 import '../main/main_bloc.dart';
 import 'home_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen();
+
   @override
   State<StatefulWidget> createState() {
     return _HomeScreenState();
@@ -28,10 +30,10 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
     context.read<MainBloc>()
       ..streamReselectedTabIndex.listen((tab) {
         if (tab == BottomBarTabIndex.home.index) {
-          if (AutoRouter.of(context).stack.length == 1)
+          if (AppNavigator.of(context).stack.length == 1)
             _scrollToTop();
           else
-            AutoRouter.of(context).popUntilRoot();
+            AppNavigator.of(context).popUntilRoot();
         }
       }).disposeBy(disposeBag);
   }
@@ -62,7 +64,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
                       height: 50, child: Center(child: Text('$index'))),
                   onTap: () {
                     context.read<MainBloc>().funcIncreaseCounter(index);
-                    AutoRouter.of(context).push(HomeDetailScreenRoute());
+                    AppNavigator.of(context).push(const HomeDetailScreen());
                   },
                 );
               }),

@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 
-@sealed
 abstract class DeepLinkResult {}
 
 class UnknownDeepLink extends DeepLinkResult {

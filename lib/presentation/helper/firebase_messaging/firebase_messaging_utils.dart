@@ -1,17 +1,17 @@
-import 'package:auto_route/auto_route.dart';
+import '../../ui/gallery/gallery_screen.dart';
+import 'package:flutter/material.dart' hide Notification;
 
 import '../../../domain/entity/notification.dart';
-import '../../router/app_router.gr.dart';
 import 'firebase_messaging.dart';
 
 class FirebaseMessagingUtils {
   /// use for both MainScreen and NotificationScreen
-  static List<PageRouteInfo>? parseNotification(Notification notification) {
+  static List<Widget>? parseNotification(Notification notification) {
     switch (notification.notificationType) {
       case FirebaseMessagingConstants.firebaseActionCommentOnPost:
-        return [GalleryScreenRoute(notification: notification)];
+        return [GalleryScreen(notification: notification)];
       default:
-        return [GalleryScreenRoute(notification: notification)];
+        return [GalleryScreen(notification: notification)];
     }
   }
 }

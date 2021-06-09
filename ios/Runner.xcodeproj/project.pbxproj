@@ -12,9 +12,9 @@
 		6304AC5CC86305E92532AE85 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE99A58A37D43A7FD7231D87 /* Pods_Runner.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		854FCF65266DC82400E95DF6 /* config in Resources */ = {isa = PBXBuildFile; fileRef = 854FCF64266DC82400E95DF6 /* config */; };
-		8598F6C0266A0211000BC183 /* develop.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8598F6BF266A0211000BC183 /* develop.xcconfig */; };
-		8598F6C4266A0253000BC183 /* staging.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8598F6C3266A0253000BC183 /* staging.xcconfig */; };
-		8598F6C6266A027C000BC183 /* production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8598F6C5266A027C000BC183 /* production.xcconfig */; };
+		8598F6C0266A0211000BC183 /* Develop.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8598F6BF266A0211000BC183 /* Develop.xcconfig */; };
+		8598F6C4266A0253000BC183 /* Staging.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8598F6C3266A0253000BC183 /* Staging.xcconfig */; };
+		8598F6C6266A027C000BC183 /* Production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8598F6C5266A027C000BC183 /* Production.xcconfig */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -44,9 +44,9 @@
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		854FCF64266DC82400E95DF6 /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; path = config; sourceTree = "<group>"; };
-		8598F6BF266A0211000BC183 /* develop.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = develop.xcconfig; path = Flutter/develop.xcconfig; sourceTree = "<group>"; };
-		8598F6C3266A0253000BC183 /* staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = staging.xcconfig; path = Flutter/staging.xcconfig; sourceTree = "<group>"; };
-		8598F6C5266A027C000BC183 /* production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = production.xcconfig; path = Flutter/production.xcconfig; sourceTree = "<group>"; };
+		8598F6BF266A0211000BC183 /* Develop.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Develop.xcconfig; path = Flutter/Develop.xcconfig; sourceTree = "<group>"; };
+		8598F6C3266A0253000BC183 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Staging.xcconfig; path = Flutter/Staging.xcconfig; sourceTree = "<group>"; };
+		8598F6C5266A027C000BC183 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Production.xcconfig; path = Flutter/Production.xcconfig; sourceTree = "<group>"; };
 		85F3304E266A23000092842E /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -97,13 +97,13 @@
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
-				8598F6C3266A0253000BC183 /* staging.xcconfig */,
+				8598F6C3266A0253000BC183 /* Staging.xcconfig */,
 				3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */,
 				9740EEB21CF90195004384FC /* Debug.xcconfig */,
 				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
 				9740EEB31CF90195004384FC /* Generated.xcconfig */,
-				8598F6BF266A0211000BC183 /* develop.xcconfig */,
-				8598F6C5266A027C000BC183 /* production.xcconfig */,
+				8598F6BF266A0211000BC183 /* Develop.xcconfig */,
+				8598F6C5266A027C000BC183 /* Production.xcconfig */,
 			);
 			name = Flutter;
 			sourceTree = "<group>";
@@ -208,9 +208,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8598F6C4266A0253000BC183 /* staging.xcconfig in Resources */,
-				8598F6C0266A0211000BC183 /* develop.xcconfig in Resources */,
-				8598F6C6266A027C000BC183 /* production.xcconfig in Resources */,
+				8598F6C4266A0253000BC183 /* Staging.xcconfig in Resources */,
+				8598F6C0266A0211000BC183 /* Develop.xcconfig in Resources */,
+				8598F6C6266A027C000BC183 /* Production.xcconfig in Resources */,
 				854FCF65266DC82400E95DF6 /* config in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
@@ -341,7 +341,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		8598F6C7266A02A8000BC183 /* Debug-staging */ = {
+		8598F6C7266A02A8000BC183 /* Debug-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
@@ -395,11 +395,11 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug-staging";
+			name = "Debug-Staging";
 		};
-		8598F6C8266A02A8000BC183 /* Debug-staging */ = {
+		8598F6C8266A02A8000BC183 /* Debug-Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8598F6C3266A0253000BC183 /* staging.xcconfig */;
+			baseConfigurationReference = 8598F6C3266A0253000BC183 /* Staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -422,9 +422,9 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Debug-staging";
+			name = "Debug-Staging";
 		};
-		8598F6C9266A02BA000BC183 /* Debug-production */ = {
+		8598F6C9266A02BA000BC183 /* Debug-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
@@ -478,11 +478,11 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug-production";
+			name = "Debug-Production";
 		};
-		8598F6CA266A02BA000BC183 /* Debug-production */ = {
+		8598F6CA266A02BA000BC183 /* Debug-Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8598F6C5266A027C000BC183 /* production.xcconfig */;
+			baseConfigurationReference = 8598F6C5266A027C000BC183 /* Production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -505,9 +505,9 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Debug-production";
+			name = "Debug-Production";
 		};
-		8598F6CB266A02D5000BC183 /* Release-staging */ = {
+		8598F6CB266A02D5000BC183 /* Release-Staging */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
@@ -558,11 +558,11 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release-staging";
+			name = "Release-Staging";
 		};
-		8598F6CC266A02D5000BC183 /* Release-staging */ = {
+		8598F6CC266A02D5000BC183 /* Release-Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8598F6C3266A0253000BC183 /* staging.xcconfig */;
+			baseConfigurationReference = 8598F6C3266A0253000BC183 /* Staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -584,9 +584,9 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Release-staging";
+			name = "Release-Staging";
 		};
-		8598F6CD266A02F3000BC183 /* Release-production */ = {
+		8598F6CD266A02F3000BC183 /* Release-Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
@@ -637,11 +637,11 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release-production";
+			name = "Release-Production";
 		};
-		8598F6CE266A02F3000BC183 /* Release-production */ = {
+		8598F6CE266A02F3000BC183 /* Release-Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8598F6C5266A027C000BC183 /* production.xcconfig */;
+			baseConfigurationReference = 8598F6C5266A027C000BC183 /* Production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -663,9 +663,9 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Release-production";
+			name = "Release-Production";
 		};
-		97C147031CF9000F007C117D /* Debug-develop */ = {
+		97C147031CF9000F007C117D /* Debug-Develop */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
@@ -719,9 +719,9 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = "Debug-develop";
+			name = "Debug-Develop";
 		};
-		97C147041CF9000F007C117D /* Release-develop */ = {
+		97C147041CF9000F007C117D /* Release-Develop */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
@@ -772,11 +772,11 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release-develop";
+			name = "Release-Develop";
 		};
-		97C147061CF9000F007C117D /* Debug-develop */ = {
+		97C147061CF9000F007C117D /* Debug-Develop */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8598F6BF266A0211000BC183 /* develop.xcconfig */;
+			baseConfigurationReference = 8598F6BF266A0211000BC183 /* Develop.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -799,11 +799,11 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Debug-develop";
+			name = "Debug-Develop";
 		};
-		97C147071CF9000F007C117D /* Release-develop */ = {
+		97C147071CF9000F007C117D /* Release-Develop */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8598F6BF266A0211000BC183 /* develop.xcconfig */;
+			baseConfigurationReference = 8598F6BF266A0211000BC183 /* Develop.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -825,7 +825,7 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Release-develop";
+			name = "Release-Develop";
 		};
 /* End XCBuildConfiguration section */
 
@@ -833,28 +833,28 @@
 		97C146E91CF9000F007C117D /* Build configuration list for PBXProject "Runner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				97C147031CF9000F007C117D /* Debug-develop */,
-				8598F6C9266A02BA000BC183 /* Debug-production */,
-				8598F6C7266A02A8000BC183 /* Debug-staging */,
-				97C147041CF9000F007C117D /* Release-develop */,
-				8598F6CB266A02D5000BC183 /* Release-staging */,
-				8598F6CD266A02F3000BC183 /* Release-production */,
+				97C147031CF9000F007C117D /* Debug-Develop */,
+				8598F6C9266A02BA000BC183 /* Debug-Production */,
+				8598F6C7266A02A8000BC183 /* Debug-Staging */,
+				97C147041CF9000F007C117D /* Release-Develop */,
+				8598F6CB266A02D5000BC183 /* Release-Staging */,
+				8598F6CD266A02F3000BC183 /* Release-Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release-production";
+			defaultConfigurationName = "Release-Production";
 		};
 		97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				97C147061CF9000F007C117D /* Debug-develop */,
-				8598F6CA266A02BA000BC183 /* Debug-production */,
-				8598F6C8266A02A8000BC183 /* Debug-staging */,
-				97C147071CF9000F007C117D /* Release-develop */,
-				8598F6CC266A02D5000BC183 /* Release-staging */,
-				8598F6CE266A02F3000BC183 /* Release-production */,
+				97C147061CF9000F007C117D /* Debug-Develop */,
+				8598F6CA266A02BA000BC183 /* Debug-Production */,
+				8598F6C8266A02A8000BC183 /* Debug-Staging */,
+				97C147071CF9000F007C117D /* Release-Develop */,
+				8598F6CC266A02D5000BC183 /* Release-Staging */,
+				8598F6CE266A02F3000BC183 /* Release-Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release-production";
+			defaultConfigurationName = "Release-Production";
 		};
 /* End XCConfigurationList section */
 	};

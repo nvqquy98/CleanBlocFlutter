@@ -1,13 +1,16 @@
-import 'package:auto_route/auto_route.dart';
+import '../../navigation/app_navigator.dart';
+import '../login/login_screen.dart';
+
 import '../app_bloc.dart';
 import 'package:get_it/get_it.dart';
 import '../base/base_state_and_utils.dart';
 import 'settings_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../generated/l10n.dart';
-import '../../router/app_router.gr.dart';
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen();
+
   @override
   State<StatefulWidget> createState() {
     return _SettingsScreenState();
@@ -22,7 +25,7 @@ class _SettingsScreenState extends BaseState<SettingsScreen, SettingsBloc> {
     super.initState();
     bloc
       ..logoutSuccess.listen((event) {
-        AutoRouter.of(context).replace(const LoginScreenRoute());
+        AppNavigator.of(context).popAllAndPush(const LoginScreen());
       }).disposeBy(disposeBag);
   }
 
