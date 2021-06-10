@@ -19,6 +19,11 @@ abstract class AppPage {
   final String path;
 
   const AppPage(this.path);
+
+  @override
+  String toString() {
+    return path;
+  }
 }
 
 class SplashPage extends AppPage {

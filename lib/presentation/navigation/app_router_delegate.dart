@@ -1,3 +1,4 @@
+import '../../utils/log/log_utils.dart';
 import 'package:flutter/material.dart';
 
 import 'app_pages.dart';
@@ -16,6 +17,7 @@ class AppRouterDelegate extends RouterDelegate<AppPage>
 
   @override
   Widget build(BuildContext context) {
+    printKV(tag, 'rebuild');
     return Navigator(
       key: navigatorKey,
       onPopPage: _onPopPage,
@@ -25,6 +27,7 @@ class AppRouterDelegate extends RouterDelegate<AppPage>
   }
 
   void setAction(PageAction action) {
+    printKV(tag, action);
     action.when(
       push: _push,
       pushAll: _pushAll,
@@ -43,21 +46,25 @@ class AppRouterDelegate extends RouterDelegate<AppPage>
   @override
   GlobalKey<NavigatorState>? get navigatorKey => GlobalKey();
 
-  /// called before a new route has been pushed by OS. Ex: new intent, deep link, launcher
+  /// called before a new route has been pushed by OS.
+  /// Ex: new intent, deep link, launcher, url on browser
   /// which gives our app opportunity to update the app state based on the changes to the route
   @override
   Future<void> setNewRoutePath(AppPage configuration) async {
+    printKV(tag, 'setNewRoutePath $configuration');
     return null;
   }
 
   /// called when press button back android
   @override
   Future<bool> popRoute() {
+    printKV(tag, 'popRoute');
     return Future.value(_pop());
   }
 
   /// called when Navigator.of(context).pop() is invoked
   bool _onPopPage(Route<dynamic> route, result) {
+    printKV(tag, '_onPopPage result=$result');
     final didPop = route.didPop(result);
     if (!didPop) {
       return false;
@@ -128,4 +135,6 @@ class AppRouterDelegate extends RouterDelegate<AppPage>
         name: pageConfig?.path,
         arguments: pageConfig);
   }
+
+  static const tag = 'AppRouterDelegate';
 }

@@ -8,8 +8,12 @@ import 'app_route_information_parser.dart';
 import 'package:provider/provider.dart';
 
 class AppNavigator {
+  final int a;
+
   AppRouterDelegate? _appRouterDelegate;
   final _appRouteInformationParser = AppRouteInformationParser();
+
+  AppNavigator(this.a);
 
   AppRouteInformationParser get routeInformationParser =>
       _appRouteInformationParser;
@@ -24,48 +28,39 @@ class AppNavigator {
   }
 
   void push(Widget widget) {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(PageAction.push(widget));
+    _appRouterDelegate!.setAction(PageAction.push(widget));
   }
 
   void pushAll(List<Widget> widgets) {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(PageAction.pushAll(widgets));
+    _appRouterDelegate!.setAction(PageAction.pushAll(widgets));
   }
 
   void popAndPush(Widget widget) {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(PageAction.popAndPush(widget));
+    _appRouterDelegate!.setAction(PageAction.popAndPush(widget));
   }
 
   void popAllAndPush(Widget widget) {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(PageAction.popAllAndPush(widget));
+    _appRouterDelegate!.setAction(PageAction.popAllAndPush(widget));
   }
 
   void popAllAndPushAll(List<Widget> widgets) {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(PageAction.popAllAndPushAll(widgets));
+    _appRouterDelegate!.setAction(PageAction.popAllAndPushAll(widgets));
   }
 
   void pop() {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(const PageAction.pop());
+    _appRouterDelegate!.setAction(const PageAction.pop());
   }
 
   void popMultiPages(int number) {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(PageAction.popMultiPages(number));
+    _appRouterDelegate!.setAction(PageAction.popMultiPages(number));
   }
 
   void popUntilRoot() {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(const PageAction.popUntilRoot());
+    _appRouterDelegate!.setAction(const PageAction.popUntilRoot());
   }
 
   void removeAllPagesOfType(Type type) {
-    assert(_appRouterDelegate != null);
-    _appRouterDelegate?.setAction(PageAction.removeAllPagesOfType(type));
+    _appRouterDelegate!.setAction(PageAction.removeAllPagesOfType(type));
   }
 
   static AppNavigator of(BuildContext context) {

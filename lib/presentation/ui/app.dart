@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../../utils/logic_utils.dart';
 import '../helper/deeplink/deep_link.dart';
-import '../router/app_router_observer.dart';
 import 'app_bloc.dart';
 import 'base/base_state.dart';
 import 'edit_profile/profile_shared_bloc.dart';
@@ -26,7 +25,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends BaseState<MyApp, AppBloc> {
-  final _appNavigator = AppNavigator();
+  final _appNavigator = AppNavigator(1);
   final _deepLinkManager = GetIt.instance.get<DeepLinkManager>();
 
   List<Widget> _parseDeepLinkResult() {
@@ -71,38 +70,40 @@ class _MyAppState extends BaseState<MyApp, AppBloc> {
           initialData: bloc.isDarkMode,
           stream: bloc.isDarkModeStream,
           builder: (context, snapshot) {
-            return MaterialApp.router(
-              title: 'Base Clean Flutter',
-              debugShowCheckedModeBanner: false,
-              darkTheme: AppThemes.darkTheme,
-              themeMode:
-                  snapshot.data == true ? ThemeMode.dark : ThemeMode.light,
-              theme: AppThemes.lightTheme,
-              routerDelegate: _appNavigator.delegate(
-                  initialPages: _parseDeepLinkResult(),
-                  navigatorObservers: []),
-              routeInformationParser: _appNavigator.routeInformationParser,
-              localeResolutionCallback: (deviceLocale, supportedLocales) {
-                if (deviceLocale != null &&
-                    supportedLocales.contains(deviceLocale)) {
-                  return deviceLocale;
-                } else {
-                  return const Locale('en', 'US');
-                }
-              },
-              supportedLocales: S.delegate.supportedLocales,
-              localizationsDelegates: const [
-                S.delegate,
+            return Provider(
+              create: (_) => AppNavigator(2),
+              child: MaterialApp.router(
+                title: 'Base Clean Flutter',
+                debugShowCheckedModeBanner: false,
+                darkTheme: AppThemes.darkTheme,
+                themeMode:
+                    snapshot.data == true ? ThemeMode.dark : ThemeMode.light,
+                theme: AppThemes.lightTheme,
+                routerDelegate: _appNavigator.delegate(
+                    initialPages: _parseDeepLinkResult(), navigatorObservers: []),
+                routeInformationParser: _appNavigator.routeInformationParser,
+                localeResolutionCallback: (deviceLocale, supportedLocales) {
+                  if (deviceLocale != null &&
+                      supportedLocales.contains(deviceLocale)) {
+                    return deviceLocale;
+                  } else {
+                    return const Locale('en', 'US');
+                  }
+                },
+                supportedLocales: S.delegate.supportedLocales,
+                localizationsDelegates: const [
+                  S.delegate,
 
-                /// Built-in localization of basic text for Material widgets
-                GlobalMaterialLocalizations.delegate,
+                  /// Built-in localization of basic text for Material widgets
+                  GlobalMaterialLocalizations.delegate,
 
-                /// Built-in localization for text direction LTR/RTL
-                GlobalWidgetsLocalizations.delegate,
+                  /// Built-in localization for text direction LTR/RTL
+                  GlobalWidgetsLocalizations.delegate,
 
-                /// Built-in localization of basic text for Cupertino widgets
-                GlobalCupertinoLocalizations.delegate,
-              ],
+                  /// Built-in localization of basic text for Cupertino widgets
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+              ),
             );
           }),
     );

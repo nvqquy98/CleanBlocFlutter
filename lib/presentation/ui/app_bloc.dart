@@ -12,8 +12,6 @@ import '../../domain/usecase/save_is_dark_mode_use_case.dart';
 import '../../utils/logic_utils.dart';
 import 'base/base_bloc.dart';
 
-/// it help rebuild all widget tree
-/// useful for change theme or change language in app
 @LazySingleton()
 class AppBloc extends BaseBloc {
   final ClearAllUserInfoUseCase _clearAllUserInfoUseCase;

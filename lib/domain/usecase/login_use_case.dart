@@ -10,5 +10,5 @@ class LoginUseCase {
   const LoginUseCase(this._userRepository);
 
   Future<Unit> call({required String email, required String password}) =>
-      _userRepository.login(email, password);
+      Future.value(Unit());
 }

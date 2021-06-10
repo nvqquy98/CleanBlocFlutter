@@ -1,4 +1,3 @@
-import '../../navigation/app_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
@@ -114,10 +113,12 @@ abstract class BaseState<T extends StatefulWidget, Bloc extends BaseBloc>
   }
 
   void showLoading() {
+    print('show loading');
     context.showLoading();
   }
 
   void hideLoading() {
-    AppNavigator.of(context).pop();
+    print('hide loading');
+    Navigator.of(context).pop();
   }
 }
