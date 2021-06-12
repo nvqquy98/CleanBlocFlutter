@@ -1,4 +1,6 @@
-import '../../navigation/app_navigator.dart';
+import 'package:basecleanflutter/presentation/ui/custom_view/view_group/toolbar.dart';
+
+import '../../navigation/navigator/app_navigator.dart';
 import 'package:flutter/material.dart' hide Notification;
 import 'package:provider/provider.dart';
 
@@ -19,8 +21,13 @@ class GalleryScreen extends StatefulWidget {
 class _GalleryScreenState extends BaseState<GalleryScreen, GalleryBloc> {
   @override
   Widget build(BuildContext context) {
+    Router.of(context).backButtonDispatcher!.takePriority();
     return SafeArea(
       child: Scaffold(
+        appBar: const Toolbar(
+          title: 'Gallery',
+          isCloseButton: true,
+        ),
         body: Column(
           children: [
             Text('Notification: ${widget.notification}'),

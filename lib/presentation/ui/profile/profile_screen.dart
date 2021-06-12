@@ -1,6 +1,7 @@
-import 'package:basecleanflutter/presentation/ui/edit_profile/edit_profile_screen.dart';
+import '../../navigation/navigator/profile_navigator.dart';
+import '../edit_profile/edit_profile_screen.dart';
 
-import '../../navigation/app_navigator.dart';
+import '../../navigation/navigator/app_navigator.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class _ProfileScreenState extends BaseState<ProfileScreen, ProfileBloc> {
         children: [
           ElevatedButton(
             onPressed: () {
-              AppNavigator.of(context).push(const EditProfileScreen());
+              ProfileNavigator.of(context).push(const EditProfileScreen());
             },
             child: const Text('Go to edit'),
           ),

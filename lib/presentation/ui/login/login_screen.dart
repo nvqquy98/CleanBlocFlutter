@@ -1,6 +1,6 @@
 import '../main/main_screen.dart';
 
-import '../../navigation/app_navigator.dart';
+import '../../navigation/navigator/app_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,12 +31,13 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
     super.initState();
     bloc
       ..streamLoginSuccess.listen((_) {
-        AppNavigator.of(context).popAndPush(const MainScreen());
+        AppNavigator.of(context).push(const MainScreen());
       }).disposeBy(disposeBag);
   }
 
   @override
   Widget build(BuildContext context) {
+    print('rebuild login');
     return ChangeNotifierProvider(
       create: (_) => bloc,
       child: Scaffold(
@@ -118,7 +119,7 @@ class _LoginButtonState extends State<LoginButton> {
         stream: context.read<LoginBloc>().streamIsButtonLoginEnable,
         builder: (context, snapshot) {
           return AppButton(
-              isEnable: snapshot.data ?? false,
+              isEnable: true,
               text: S.of(context).login,
               enableGradient: AppColors.gradient,
               onPressed: context.read<LoginBloc>().funcSubmit);

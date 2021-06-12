@@ -1,6 +1,6 @@
 import '../gallery/gallery_screen.dart';
 
-import '../../navigation/app_navigator.dart';
+import '../../navigation/navigator/app_navigator.dart';
 
 import '../home_detail/home_detail_bloc.dart';
 import '../main/main_bloc.dart';

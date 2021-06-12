@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'utils/stream/dispose_bag.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -30,11 +30,8 @@ class App {
     /// config Equatable
     EquatableConfig.stringify = true;
 
-    /// config http request logging
-    HttpRequestLogConfig.enableLogInterceptor = kDebugMode;
-
-    /// config stream logging
-    StreamLoggerConfig.enableStreamLogger = kDebugMode;
+    /// config logging
+    _configLogging();
 
     await Future.wait([
       SystemChrome.setEnabledSystemUIOverlays(
@@ -57,5 +54,16 @@ class App {
   static _reportError(Object error, StackTrace stacktrace) {
     print('uncaught error: $error');
     // report error by sentry or firebase crashlytic
+  }
+
+  static _configLogging() {
+    /// config http request logging
+    HttpRequestLogConfig.enableLogInterceptor = false;
+
+    /// config stream logging
+    StreamLoggerConfig.enableStreamLogger = false;
+
+    /// config DisposeBag logging
+    DisposeBagConfig.enableLogging = false;
   }
 }

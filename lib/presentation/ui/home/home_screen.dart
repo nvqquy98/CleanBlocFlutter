@@ -1,4 +1,6 @@
-import '../../navigation/app_navigator.dart';
+import '../../navigation/navigator/home_navigator.dart';
+
+import '../../navigation/navigator/app_navigator.dart';
 import '../home_detail/home_detail_screen.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +66,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
                       height: 50, child: Center(child: Text('$index'))),
                   onTap: () {
                     context.read<MainBloc>().funcIncreaseCounter(index);
-                    AppNavigator.of(context).push(const HomeDetailScreen());
+                    HomeNavigator.of(context).push(HomeDetailScreen(id: index));
                   },
                 );
               }),

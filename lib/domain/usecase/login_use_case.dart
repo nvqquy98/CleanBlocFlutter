@@ -10,5 +10,5 @@ class LoginUseCase {
   const LoginUseCase(this._userRepository);
 
   Future<Unit> call({required String email, required String password}) =>
-      Future.value(Unit());
+      Future.delayed(const Duration(seconds: 2), () => Unit());
 }

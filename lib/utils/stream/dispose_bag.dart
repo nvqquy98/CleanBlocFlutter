@@ -2,6 +2,10 @@ import 'dart:async';
 
 import '../log/log_utils.dart';
 
+class DisposeBagConfig {
+  static bool enableLogging = true;
+}
+
 class DisposeBag {
   final List<Object> _disposable = [];
 
@@ -12,11 +16,11 @@ class DisposeBag {
   void dispose() {
     _disposable.forEach((disposable) {
       if (disposable is StreamSubscription) {
-        printKV(tag, 'canceled $disposable');
         disposable.cancel();
+        if (DisposeBagConfig.enableLogging) printKV(tag, 'canceled $disposable');
       } else if (disposable is StreamController) {
-        printKV(tag, 'closed $disposable');
         disposable.close();
+        if (DisposeBagConfig.enableLogging) printKV(tag, 'closed $disposable');
       }
     });
 

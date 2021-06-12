@@ -1,4 +1,3 @@
-import '../../../navigation/app_navigator.dart';
 import 'package:flutter/material.dart';
 import '../../resource/colors/app_colors.dart';
 
@@ -27,7 +26,7 @@ class Toolbar extends StatelessWidget with PreferredSizeWidget {
           color: AppColors.black,
         ),
         onPressed: () {
-          AppNavigator.of(context).pop();
+          Navigator.of(context).pop();
         },
       ) : null,
     );

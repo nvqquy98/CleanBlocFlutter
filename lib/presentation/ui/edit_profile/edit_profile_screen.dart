@@ -1,4 +1,6 @@
-import '../../navigation/app_navigator.dart';
+import 'package:basecleanflutter/presentation/ui/custom_view/view_group/toolbar.dart';
+
+import '../../navigation/navigator/app_navigator.dart';
 import '../gallery/gallery_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,25 +21,28 @@ class _EditProfileScreenState
     extends BaseState<EditProfileScreen, EditProfileBloc> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          StreamBuilder<int>(
-              stream: context.read<ProfileSharedBloc>().streamData,
-              builder: (context, snapshot) {
-                return Text('data ${snapshot.data}');
-              }),
-          ElevatedButton(
-            onPressed: () {
-              AppNavigator.of(context).push(const GalleryScreen());
-            },
-            child: const Text('Go to gallery'),
-          ),
-          ElevatedButton(
-            onPressed: () => context.read<ProfileSharedBloc>().setData(0),
-            child: const Text('clear data'),
-          ),
-        ],
+    return Scaffold(
+      appBar: const Toolbar(title: 'Edit profile', isCloseButton: false),
+      body: Center(
+        child: Column(
+          children: [
+            StreamBuilder<int>(
+                stream: context.read<ProfileSharedBloc>().streamData,
+                builder: (context, snapshot) {
+                  return Text('data ${snapshot.data}');
+                }),
+            ElevatedButton(
+              onPressed: () {
+                AppNavigator.of(context).push(const GalleryScreen());
+              },
+              child: const Text('Go to gallery'),
+            ),
+            ElevatedButton(
+              onPressed: () => context.read<ProfileSharedBloc>().setData(0),
+              child: const Text('clear data'),
+            ),
+          ],
+        ),
       ),
     );
   }

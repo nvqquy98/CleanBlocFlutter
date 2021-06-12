@@ -42,12 +42,7 @@ class LoginBloc extends BaseBloc {
         .addSafely(exception.getFirstServerErrorMessage());
 
     final Stream<String?> validationError = _submitController.stream.map((_) {
-      final errors = Validator.validateEmail(_emailController.value);
-      if (errors.isValid) {
-        return null;
-      } else {
-        return errors.firstErrorMessage;
-      }
+      return null;
     });
 
     streamIsButtonLoginEnable = Rx.combineLatest2(

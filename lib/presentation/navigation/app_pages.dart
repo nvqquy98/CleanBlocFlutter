@@ -1,59 +1,48 @@
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'app_pages.freezed.dart';
+
+/// support Web platform
+@freezed
+class AppPage with _$AppPage {
+  const factory AppPage.unknown() = _Unknown;
+
+  const factory AppPage.initial() = _Initial;
+
+  const factory AppPage.loginOptions() = _LoginOptions;
+
+  const factory AppPage.login() = _Login;
+
+  const factory AppPage.home() = _Home;
+
+  const factory AppPage.main() = _Main;
+
+  const factory AppPage.homeDetail(int id) = _HomeDetail;
+
+  const factory AppPage.profile() = _Profile;
+
+  const factory AppPage.editProfile() = _EditProfile;
+
+  const factory AppPage.gallery() = _Gallery;
+
+  const factory AppPage.settings() = _Settings;
+
+  const factory AppPage.resetPassword(String resetPasswordToken) =
+      _ResetPassword;
+}
+
+/// support Web platform
 class PagePrefixPath {
   const PagePrefixPath._();
 
   factory PagePrefixPath() => const PagePrefixPath._();
-  static const splash = '/splash';
   static const login = '/login';
+  static const loginOptions = '/loginOptions';
   static const home = '/home';
   static const main = '/main';
   static const profile = '/profile';
   static const editProfile = '/editProfile';
   static const gallery = '/gallery';
+  static const settings = '/settings';
   static const resetPassword = '/resetPassword';
-}
-
-@sealed
-abstract class AppPage {
-  final String path;
-
-  const AppPage(this.path);
-
-  @override
-  String toString() {
-    return path;
-  }
-}
-
-class SplashPage extends AppPage {
-  const SplashPage() : super(PagePrefixPath.splash);
-}
-
-class LoginPage extends AppPage {
-  const LoginPage() : super(PagePrefixPath.login);
-}
-
-class MainPage extends AppPage {
-  const MainPage() : super(PagePrefixPath.main);
-}
-
-class HomePage extends AppPage {
-  const HomePage() : super(PagePrefixPath.home);
-}
-
-class ProfilePage extends AppPage {
-  const ProfilePage() : super(PagePrefixPath.profile);
-}
-
-class EditProfilePage extends AppPage {
-  const EditProfilePage() : super(PagePrefixPath.editProfile);
-}
-
-class GalleryPage extends AppPage {
-  const GalleryPage() : super(PagePrefixPath.gallery);
-}
-
-class ResetPasswordPage extends AppPage {
-  const ResetPasswordPage() : super(PagePrefixPath.resetPassword);
 }

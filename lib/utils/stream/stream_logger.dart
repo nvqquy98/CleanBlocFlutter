@@ -2,20 +2,7 @@ import 'package:logger/logger.dart';
 import 'package:rxdart/rxdart.dart';
 
 class StreamLoggerConfig {
-  static bool get enableStreamLogger {
-    if (_enableStreamLogger == null) {
-      assert(() {
-        _enableStreamLogger = true;
-        return true;
-      }());
-    }
-
-    return _enableStreamLogger ??= false;
-  }
-
-  static set enableStreamLogger(bool value) => _enableStreamLogger = value;
-
-  static bool? _enableStreamLogger;
+  static bool enableStreamLogger = true;
 }
 
 class StreamLogger {

@@ -9,5 +9,6 @@ class LogoutUseCase {
 
   const LogoutUseCase(this._userRepository);
 
-  Future<Unit> call() => Future.value(Unit());
+  Future<Unit> call() =>
+      Future.delayed(const Duration(seconds: 2), () => Unit());
 }

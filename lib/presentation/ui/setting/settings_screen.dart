@@ -1,4 +1,4 @@
-import '../../navigation/app_navigator.dart';
+import '../../navigation/navigator/app_navigator.dart';
 import '../login/login_screen.dart';
 
 import '../app_bloc.dart';
