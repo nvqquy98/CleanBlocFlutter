@@ -138,7 +138,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/uni_links/ios"
 
 SPEC CHECKSUMS:
-  connectivity_plus: f5e5e0b894ec1187bfab9816d6c2f034da8d46da
+  connectivity_plus: 5f0eb61093bec56935f21a1699dd2758bc895587
   Firebase: 73c3e3b216ec1ecbc54d2ffdd4670c65c749edb1
   firebase_core: a9b69f8583dc992f1b15f376b4918537c1804bb4
   firebase_messaging: f45b468c889bdc3191bc47368329ae22cda536da
