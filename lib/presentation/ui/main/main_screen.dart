@@ -23,51 +23,11 @@ class _MainScreenState extends BaseState<MainScreen, MainBloc> {
   final homeNavigator = HomeNavigator();
   final profileNavigator = ProfileNavigator();
   final settingsNavigator = SettingsNavigator();
-  ChildBackButtonDispatcher? _homeBackButtonDispatcher;
-  ChildBackButtonDispatcher? _profileBackButtonDispatcher;
-  ChildBackButtonDispatcher? _settingsBackButtonDispatcher;
-  List<Router>? _routers;
 
   @override
   void initState() {
     super.initState();
     _triggerNotification();
-    bloc.bottomTabIndex.listen((index) {
-      if (index == BottomBarTabIndex.home.index) {
-        _homeBackButtonDispatcher?.takePriority();
-      } else if (index == BottomBarTabIndex.profile.index) {
-        _profileBackButtonDispatcher?.takePriority();
-      } else {
-        _settingsBackButtonDispatcher?.takePriority();
-      }
-    }).disposeBy(disposeBag);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _homeBackButtonDispatcher ??= Router.of(context)
-        .backButtonDispatcher!
-        .createChildBackButtonDispatcher();
-    _profileBackButtonDispatcher ??= Router.of(context)
-        .backButtonDispatcher!
-        .createChildBackButtonDispatcher();
-    _settingsBackButtonDispatcher ??= Router.of(context)
-        .backButtonDispatcher!
-        .createChildBackButtonDispatcher();
-    _routers ??= List.unmodifiable([
-      Router(
-          routerDelegate: homeNavigator,
-          backButtonDispatcher: _homeBackButtonDispatcher),
-      Router(
-        routerDelegate: profileNavigator,
-        backButtonDispatcher: _profileBackButtonDispatcher,
-      ),
-      Router(
-        routerDelegate: settingsNavigator,
-        backButtonDispatcher: _settingsBackButtonDispatcher,
-      ),
-    ]);
   }
 
   void _triggerNotification() {
@@ -103,7 +63,8 @@ class _MainScreenState extends BaseState<MainScreen, MainBloc> {
                 ),
                 body: IndexedStack(
                   index: snapshot.data ?? BottomBarTabIndex.home.index,
-                  children: _routers!,
+                  children: AppNavigator.of(context).createChildRouter(
+                      [homeNavigator, profileNavigator, settingsNavigator]),
                 ),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () => bloc.funcIncreaseCounter(1),

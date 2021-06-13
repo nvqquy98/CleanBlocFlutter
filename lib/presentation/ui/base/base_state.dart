@@ -113,12 +113,10 @@ abstract class BaseState<T extends StatefulWidget, Bloc extends BaseBloc>
   }
 
   void showLoading() {
-    print('show loading');
-    context.showLoading();
+    context.showLoadingDialog();
   }
 
   void hideLoading() {
-    print('hide loading');
-    Navigator.of(context).pop();
+    context.hideDialog();
   }
 }

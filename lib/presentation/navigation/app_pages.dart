@@ -37,12 +37,12 @@ class PagePrefixPath {
 
   factory PagePrefixPath() => const PagePrefixPath._();
   static const login = '/login';
-  static const loginOptions = '/loginOptions';
+  static const loginOptions = '/login-options';
   static const home = '/home';
   static const main = '/main';
   static const profile = '/profile';
-  static const editProfile = '/editProfile';
+  static const editProfile = '/edit-profile';
   static const gallery = '/gallery';
   static const settings = '/settings';
-  static const resetPassword = '/resetPassword';
+  static const resetPassword = '/reset-password';
 }

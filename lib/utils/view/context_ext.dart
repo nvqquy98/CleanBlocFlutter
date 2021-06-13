@@ -21,7 +21,7 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
     );
   }
 
-  void showLoading() {
+  void showLoadingDialog() {
     showDialog<void>(
       context: this,
       barrierDismissible: false,
@@ -33,6 +33,10 @@ extension ShowSnackBarBuildContextExtension on BuildContext {
         );
       },
     );
+  }
+
+  void hideDialog() {
+    Navigator.of(this).pop();
   }
 
   void hideKeyboard() {
