@@ -1,6 +1,6 @@
 # basecleanflutter
 
-A base Flutter application using clean architecture and bloc pattern developed by nguyen.thanh.minh-b@sun-asterisk.com
+A base Flutter application using clean architecture and bloc pattern
 
 ## v3 CHANGE_LOG
 - Stream Logger help logging events when working with Stream
