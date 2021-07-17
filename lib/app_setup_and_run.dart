@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +26,6 @@ class App {
 
     /// setup DI
     await configureInjection();
-
-    /// config Equatable
-    EquatableConfig.stringify = true;
 
     /// config logging
     _configLogging();

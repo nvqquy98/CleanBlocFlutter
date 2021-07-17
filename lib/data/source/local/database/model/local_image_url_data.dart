@@ -39,9 +39,6 @@ class LocalImageUrlData extends BaseLocalData {
       type = LocalImageUrlType.postImage;
     }
   }
-
-  @override
-  List<Object?> get props => [id, type, origin, lg, md, sm];
 }
 
 enum LocalImageUrlType { unknown, userAvatar, userWallImage, postImage }

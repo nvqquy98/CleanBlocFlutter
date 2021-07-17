@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import '../resource/dimens/dimens.dart';
 import '../app_bloc.dart';
 import 'package:get_it/get_it.dart';
 import '../base/base_state_and_utils.dart';
@@ -49,27 +50,27 @@ class _SettingsScreenState extends BaseState<SettingsScreen, SettingsBloc> {
               onPressed: bloc.cancelPreviousApiClick,
               child: const Text('cancel previous'),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: Dimens.h(16)),
             ElevatedButton(
               onPressed: bloc.queueApiClick,
               child: const Text('queue api'),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: Dimens.h(16)),
             ElevatedButton(
               onPressed: bloc.nonCancelApiClick,
               child: const Text('non cancel api'),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: Dimens.h(16)),
             ElevatedButton(
               onPressed: bloc.cancelLateClick,
               child: const Text('cancel late api'),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: Dimens.h(16)),
             ElevatedButton(
               onPressed: bloc.clearTextClick,
               child: const Text('clear text'),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: Dimens.h(16)),
             ElevatedButton(
               onPressed: bloc.logout,
               child: Text(S.of(context).logout),

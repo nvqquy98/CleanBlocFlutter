@@ -13,7 +13,4 @@ class LocalUserData extends BaseLocalData {
 
   LocalUserData(
       {required this.id, required this.nickname, required this.email});
-
-  @override
-  List<Object?> get props => [id, nickname, email, avatar];
 }

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import '../resource/dimens/dimens.dart';
 import 'package:flutter/material.dart' hide Notification;
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,7 @@ class _GalleryScreenState extends BaseState<GalleryScreen, GalleryBloc> {
         body: Column(
           children: [
             Text('Notification: ${widget.notification}'),
-            const SizedBox(height: 30),
+            SizedBox(height: Dimens.h(30)),
             ElevatedButton(
               child: const Text('send data to edit profile'),
               onPressed: () {

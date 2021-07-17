@@ -1,6 +1,8 @@
+import '../../resource/dimens/dimens.dart';
 import 'package:flutter/material.dart';
 
 import '../../resource/colors/app_colors.dart';
+import '../../resource/themes/app_text_styles.dart';
 
 class FormErrorText extends StatelessWidget {
   final String error;
@@ -10,14 +12,14 @@ class FormErrorText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 315,
+      width: Dimens.w(315),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
           border: Border.all(color: AppColors.amaranth),
-          borderRadius: BorderRadius.circular(4)),
+          borderRadius: BorderRadius.circular(Dimens.r(4))),
       child: Text(
         error,
-        style: TextStyle(fontSize: 12, color: AppColors.amaranth),
+        style: AppTextStyles.s12Amaranth,
       ),
     );
   }
