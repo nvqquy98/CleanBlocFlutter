@@ -1,0 +1,70 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Build Develop"
+  lane :buildDevelop do
+    gradle(
+      task: "assemble",
+      flavor: "develop",
+      build_type: "Release"
+    )
+  end
+
+  desc "Build Staging"
+  lane :buildStaging do
+    gradle(
+      task: "assemble",
+      flavor: "staging",
+      build_type: "Release"
+    )
+  end
+
+  desc "Build Production"
+  lane :buildProduction do
+    gradle(
+      task: "assemble",
+      flavor: "production",
+      build_type: "Release"
+    )
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new Develop Build to Firebase Distribution"
+  lane :distributeDevelop do
+    buildDevelop
+    firebase_app_distribution(
+        app: "1:58678949545:android:86d383a12485432c8ddbb8",
+        groups: "tester",
+        android_artifact_path: "../build/app/outputs/apk/develop/release/app-develop-release.apk",
+        release_notes_file: "../change_log.txt"
+    )
+
+    slack(
+        message: "Deploy a new version to Firebase Distribution. <https://appdistribution.firebase.dev/i/7ee6fc8f8ee1e969|Download here>",
+        success: true,
+        slack_url: "https://hooks.slack.com/services/",
+        default_payloads: [:git_branch, :lane]
+    )
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+end
