@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import '../../resource/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import '../../resource/colors/app_colors.dart';
 
@@ -16,7 +17,7 @@ class Toolbar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: AppColors.white,
       title: Text(
         title,
-        style: TextStyle(fontSize: 16, color: AppColors.black),
+        style: AppTextStyles.s16Black,
         overflow: TextOverflow.ellipsis,
       ),
       automaticallyImplyLeading: false,

@@ -1,3 +1,6 @@
+import '../../resource/dimens/dimens.dart';
+
+import '../../resource/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../resource/colors/app_colors.dart';
@@ -36,19 +39,19 @@ class _PrimaryInputLayoutState extends State<PrimaryInputLayout> {
       onTap: focusNode.requestFocus,
       child: Container(
         padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
-        width: 315,
+        width: Dimens.w(315),
         decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(Dimens.r(5)),
             boxShadow: [boxShadow()]),
         child: Column(
           children: [
             Text(
               widget.title,
-              style: TextStyle(fontSize: 12, color: AppColors.raven),
+              style: AppTextStyles.s12Raven,
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: Dimens.h(12),
             ),
             TextField(
               obscureText: _isObscure && _isPasswordField,
@@ -61,7 +64,7 @@ class _PrimaryInputLayoutState extends State<PrimaryInputLayout> {
                   counterText: '',
                   contentPadding: const EdgeInsets.symmetric(vertical: 5),
                   isDense: true,
-                  suffixIconConstraints: const BoxConstraints(maxHeight: 25),
+                  suffixIconConstraints: BoxConstraints(maxHeight: Dimens.h(25)),
                   suffixIcon: _isPasswordField
                       ? IconButton(
                           padding: const EdgeInsets.symmetric(vertical: 0),
@@ -77,7 +80,7 @@ class _PrimaryInputLayoutState extends State<PrimaryInputLayout> {
                       : null,
                   hintText: widget.hint,
                   border: InputBorder.none,
-                  hintStyle: TextStyle(color: AppColors.ghost)),
+                  hintStyle: AppTextStyles.s14Ghost),
             ),
           ],
         ),

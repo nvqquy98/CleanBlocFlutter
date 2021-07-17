@@ -1,3 +1,6 @@
+import '../../resource/dimens/dimens.dart';
+
+import '../../resource/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
@@ -10,7 +13,7 @@ class AppButton extends StatelessWidget {
 
   const AppButton(
       {Key? key,
-      this.width = 265,
+      required this.width,
       required this.text,
       this.enableGradient,
       this.disableGradient,
@@ -24,19 +27,19 @@ class AppButton extends StatelessWidget {
       onPressed: isEnable ? onPressed : null,
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(0.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(56)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.r(56))),
       ),
       child: Ink(
         decoration: BoxDecoration(
             gradient: isEnable ? enableGradient : disableGradient,
-            borderRadius: BorderRadius.circular(56)),
+            borderRadius: BorderRadius.circular(Dimens.r(56))),
         child: Container(
           width: width,
-          height: 50,
+          height: Dimens.h(50),
           child: Center(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: AppTextStyles.s18BlackBold,
             ),
           ),
         ),

@@ -13,6 +13,7 @@ import '../custom_view/text/form_error_text.dart';
 import '../custom_view/text_field/primary_input_layout.dart';
 import '../custom_view/view_group/toolbar.dart';
 import '../resource/colors/app_colors.dart';
+import '../resource/dimens/dimens.dart';
 import 'login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -51,16 +52,16 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _errorText(),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: Dimens.h(20),
                   ),
                   _emailInputLayout(),
-                  const SizedBox(
-                    height: 16,
+                  SizedBox(
+                    height: Dimens.h(16),
                   ),
                   _passwordInputLayout(),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: Dimens.h(30),
                   ),
                   _loginButton(),
                 ],
@@ -117,6 +118,7 @@ class _LoginButtonState extends State<LoginButton> {
         stream: context.read<LoginBloc>().streamIsButtonLoginEnable,
         builder: (context, snapshot) {
           return AppButton(
+              width: Dimens.w(265),
               isEnable: snapshot.data ?? false,
               text: S.of(context).login,
               enableGradient: AppColors.gradient,

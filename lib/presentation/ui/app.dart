@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
@@ -59,46 +60,56 @@ class _MyAppState extends BaseState<MyApp, AppBloc> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => GetIt.instance.get<ProfileSharedBloc>(),
-      child: StreamBuilder<bool>(
-          initialData: bloc.isDarkMode,
-          stream: bloc.isDarkModeStream,
-          builder: (context, snapshot) {
-            return MaterialApp.router(
-              title: 'Base Clean Flutter',
-              debugShowCheckedModeBanner: false,
-              darkTheme: AppThemes.darkTheme,
-              themeMode:
-                  snapshot.data == true ? ThemeMode.dark : ThemeMode.light,
-              theme: AppThemes.lightTheme,
-              routerDelegate: _appRouter.delegate(
-                  initialRoutes: _parseDeepLinkResult(),
-                  navigatorObservers: () => [AppRouterObserver(context)]),
-              routeInformationParser: _appRouter.defaultRouteParser(),
-              localeResolutionCallback: (deviceLocale, supportedLocales) {
-                if (deviceLocale != null &&
-                    supportedLocales.contains(deviceLocale)) {
-                  return deviceLocale;
-                } else {
-                  return const Locale('en', 'US');
-                }
-              },
-              supportedLocales: S.delegate.supportedLocales,
-              localizationsDelegates: const [
-                S.delegate,
+    return ScreenUtilInit(
+      designSize: const Size(375, 800),
+      builder: () => ChangeNotifierProvider(
+        create: (_) => GetIt.instance.get<ProfileSharedBloc>(),
+        child: StreamBuilder<bool>(
+            initialData: bloc.isDarkMode,
+            stream: bloc.isDarkModeStream,
+            builder: (context, snapshot) {
+              return MaterialApp.router(
+                builder: (context, widget) {
+                  return MediaQuery(
+                    ///Setting font does not change with system font size
+                    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                    child: widget ?? const SizedBox(),
+                  );
+                },
+                title: 'Base Clean Flutter',
+                debugShowCheckedModeBanner: false,
+                darkTheme: AppThemes.darkTheme,
+                themeMode:
+                    snapshot.data == true ? ThemeMode.dark : ThemeMode.light,
+                theme: AppThemes.lightTheme,
+                routerDelegate: _appRouter.delegate(
+                    initialRoutes: _parseDeepLinkResult(),
+                    navigatorObservers: () => [AppRouterObserver(context)]),
+                routeInformationParser: _appRouter.defaultRouteParser(),
+                localeResolutionCallback: (deviceLocale, supportedLocales) {
+                  if (deviceLocale != null &&
+                      supportedLocales.contains(deviceLocale)) {
+                    return deviceLocale;
+                  } else {
+                    return const Locale('en', 'US');
+                  }
+                },
+                supportedLocales: S.delegate.supportedLocales,
+                localizationsDelegates: const [
+                  S.delegate,
 
-                /// Built-in localization of basic text for Material widgets
-                GlobalMaterialLocalizations.delegate,
+                  /// Built-in localization of basic text for Material widgets
+                  GlobalMaterialLocalizations.delegate,
 
-                /// Built-in localization for text direction LTR/RTL
-                GlobalWidgetsLocalizations.delegate,
+                  /// Built-in localization for text direction LTR/RTL
+                  GlobalWidgetsLocalizations.delegate,
 
-                /// Built-in localization of basic text for Cupertino widgets
-                GlobalCupertinoLocalizations.delegate,
-              ],
-            );
-          }),
+                  /// Built-in localization of basic text for Cupertino widgets
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+              );
+            }),
+      ),
     );
   }
 }

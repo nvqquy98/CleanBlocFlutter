@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import '../resource/dimens/dimens.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,10 +60,10 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
               itemBuilder: (context, index) {
                 return InkWell(
                   child: SizedBox(
-                      height: 50, child: Center(child: Text('$index'))),
+                      height: Dimens.h(50), child: Center(child: Text('$index'))),
                   onTap: () {
                     context.read<MainBloc>().funcIncreaseCounter(index);
-                    AutoRouter.of(context).push(HomeDetailScreenRoute());
+                    AutoRouter.of(context).push(const HomeDetailScreenRoute());
                   },
                 );
               }),
