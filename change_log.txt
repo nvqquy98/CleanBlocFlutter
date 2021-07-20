@@ -1,0 +1,5 @@
+17/7/2021: v1.0.0(41)
+- Setup fastlane
+
+16/7/2021: v1.0.0(40)
+- Refactor dimens
