@@ -1,6 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 
-import 'base_local_data.dart';
+import 'base/base_local_data.dart';
 
 @Entity()
 class LocalImageUrlData extends BaseLocalData {

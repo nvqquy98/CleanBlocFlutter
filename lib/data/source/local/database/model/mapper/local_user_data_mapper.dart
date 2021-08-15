@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../local_user_data.dart';
 import '../../../../../../domain/entity/user.dart';
 
-import 'base_local_data_mapper.dart';
+import 'base/base_local_data_mapper.dart';
 
 @Injectable()
 class LocalUserDataMapper extends BaseLocalDataMapper<LocalUserData, User>
@@ -15,7 +15,6 @@ class LocalUserDataMapper extends BaseLocalDataMapper<LocalUserData, User>
 
   @override
   LocalUserData mapToLocalData(User entity) {
-    return LocalUserData(
-        id: entity.id, email: entity.email, nickname: entity.nickname);
+    return LocalUserData(id: entity.id, email: entity.email, nickname: entity.nickname);
   }
 }

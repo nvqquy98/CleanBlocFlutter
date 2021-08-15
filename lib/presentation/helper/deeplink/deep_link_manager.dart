@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uni_links/uni_links.dart';
 
-import '../../../utils/logic_utils.dart';
+import '../../../shared/extensions.dart';
 import 'deep_link_result.dart';
 
 @LazySingleton()

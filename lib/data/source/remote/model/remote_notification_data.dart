@@ -1,13 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'base_remote_data.dart';
+import 'base/base_remote_data.dart';
 
 part 'remote_notification_data.freezed.dart';
 part 'remote_notification_data.g.dart';
 
 @freezed
-class RemoteNotificationData extends BaseRemoteData
-    with _$RemoteNotificationData {
+class RemoteNotificationData extends BaseRemoteData with _$RemoteNotificationData {
   const RemoteNotificationData._();
 
   const factory RemoteNotificationData({

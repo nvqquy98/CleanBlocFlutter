@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-
-import '../../../utils/log/log_utils.dart';
+import '../../../shared/extensions.dart';
+import '../../../shared/utils/log_utils.dart';
 import '../../helper/firebase_messaging/firebase_messaging.dart';
 import '../../router/app_router.gr.dart';
-import '../base/base_state_and_utils.dart';
+import '../base/base_state.dart';
 import 'main_bloc.dart';
 
 class MainScreen extends StatefulWidget {
@@ -28,8 +28,7 @@ class _MainScreenState extends BaseState<MainScreen, MainBloc> {
   }
 
   void _triggerNotification() {
-    final firebaseMessagingManager =
-        GetIt.instance.get<FirebaseMessagingManager>();
+    final firebaseMessagingManager = GetIt.instance.get<FirebaseMessagingManager>();
     firebaseMessagingManager.requestPermission();
     firebaseMessagingManager.notification.listen((notification) {
       printKV(FirebaseMessagingManager.tag, 'onNewIntent: $notification');
@@ -66,10 +65,8 @@ class _MainScreenState extends BaseState<MainScreen, MainBloc> {
                     ),
                     bottomNavigationBar: BottomNavigationBar(
                       items: [
-                        const BottomNavigationBarItem(
-                            icon: Icon(Icons.home), label: 'Home'),
-                        const BottomNavigationBarItem(
-                            icon: Icon(Icons.people), label: 'Profile'),
+                        const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                        const BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Profile'),
                         const BottomNavigationBarItem(
                             icon: Icon(Icons.settings), label: 'Settings'),
                       ],
@@ -100,8 +97,7 @@ class GoToMapButton extends StatelessWidget {
       child: ElevatedButton(
         child: const Text('go to map'),
         onPressed: () {
-          AutoRouter.of(context)
-              .push(MapScreenRoute(mainBloc: context.read<MainBloc>()));
+          AutoRouter.of(context).push(MapScreenRoute(mainBloc: context.read<MainBloc>()));
         },
       ),
     );

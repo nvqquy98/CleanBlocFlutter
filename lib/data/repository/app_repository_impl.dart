@@ -10,8 +10,7 @@ class AppRepositoryImpl extends AppRepository {
   AppRepositoryImpl(this._appLocalDataSource);
 
   @override
-  Future<bool> saveIsDarkMode(bool isDarkMode) =>
-      _appLocalDataSource.saveIsDarkMode(isDarkMode);
+  Future<bool> saveIsDarkMode(bool isDarkMode) => _appLocalDataSource.saveIsDarkMode(isDarkMode);
 
   @override
   bool get isDarkMode => _appLocalDataSource.isDarkMode;

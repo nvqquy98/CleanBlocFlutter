@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import '../../../../domain/entity/unit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,8 +16,7 @@ class AppPreferences {
   Future<bool> saveAccessToken(String token) {
     return _sharedPreference
         .setString(SharedPrefKey.accessToken, token)
-        .catchError((error) =>
-            throw SharedPrefException('Can not save access token', error));
+        .catchError((error) => throw SharedPrefException('Can not save access token', error));
   }
 
   String get accessToken {
@@ -28,8 +26,7 @@ class AppPreferences {
   Future<bool> saveRefreshToken(String token) {
     return _sharedPreference
         .setString(SharedPrefKey.refreshToken, token)
-        .catchError((error) =>
-            throw SharedPrefException('Can not save refresh token', error));
+        .catchError((error) => throw SharedPrefException('Can not save refresh token', error));
   }
 
   String get refreshToken {
@@ -39,8 +36,7 @@ class AppPreferences {
   Future<bool> saveIsLoggedIn(bool isLoggedIn) {
     return _sharedPreference
         .setBool(SharedPrefKey.isLoggedIn, isLoggedIn)
-        .catchError((error) =>
-            throw SharedPrefException('Can not save isLoggedIn flag', error));
+        .catchError((error) => throw SharedPrefException('Can not save isLoggedIn flag', error));
   }
 
   bool get isLoggedIn {
@@ -50,8 +46,7 @@ class AppPreferences {
   Future<bool> saveCurrentUser(PreferenceUserData preferenceUserData) {
     return _sharedPreference
         .setString(SharedPrefKey.currentUser, json.encode(preferenceUserData))
-        .catchError((error) =>
-            throw SharedPrefException('Can not save current user', error));
+        .catchError((error) => throw SharedPrefException('Can not save current user', error));
   }
 
   PreferenceUserData? get currentUser {
@@ -63,8 +58,7 @@ class AppPreferences {
   Future<bool> saveIsDarkMode(bool isDarkMode) {
     return _sharedPreference
         .setBool(SharedPrefKey.isDarkMode, isDarkMode)
-        .catchError((error) =>
-    throw SharedPrefException('Can not save isDarkMode flag', error));
+        .catchError((error) => throw SharedPrefException('Can not save isDarkMode flag', error));
   }
 
   bool get isDarkMode {
@@ -74,21 +68,19 @@ class AppPreferences {
   Future<bool> saveDeviceToken(String token) {
     return _sharedPreference
         .setString(SharedPrefKey.deviceToken, token)
-        .catchError((error) =>
-    throw SharedPrefException('Can not save device token', error));
+        .catchError((error) => throw SharedPrefException('Can not save device token', error));
   }
 
   String get deviceToken {
     return _sharedPreference.getString(SharedPrefKey.deviceToken) ?? '';
   }
 
-  Future<Unit> clearAllUserInfo() async {
+  Future<void> clearAllUserInfo() async {
     await Future.wait([
       _sharedPreference.remove(SharedPrefKey.currentUser),
       _sharedPreference.remove(SharedPrefKey.isLoggedIn),
       _sharedPreference.remove(SharedPrefKey.accessToken),
       _sharedPreference.remove(SharedPrefKey.refreshToken),
     ]);
-    return Unit();
   }
 }

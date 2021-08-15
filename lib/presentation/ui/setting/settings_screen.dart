@@ -2,11 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import '../resource/dimens/dimens.dart';
 import '../app_bloc.dart';
 import 'package:get_it/get_it.dart';
-import '../base/base_state_and_utils.dart';
+import '../base/base_state.dart';
 import 'settings_bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../generated/l10n.dart';
 import '../../router/app_router.gr.dart';
+import '../../../shared/extensions.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -38,8 +39,7 @@ class _SettingsScreenState extends BaseState<SettingsScreen, SettingsBloc> {
                 stream: _appBloc.isDarkModeStream,
                 builder: (context, snapshot) {
                   return Switch.adaptive(
-                      value: snapshot.data == true,
-                      onChanged: _appBloc.changeTheme);
+                      value: snapshot.data == true, onChanged: _appBloc.changeTheme);
                 }),
             StreamBuilder<String>(
                 stream: bloc.testResult,

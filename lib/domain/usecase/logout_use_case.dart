@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 
-import '../entity/unit.dart';
 import '../repository/user_repository.dart';
 
 @Injectable()
@@ -9,5 +8,5 @@ class LogoutUseCase {
 
   const LogoutUseCase(this._userRepository);
 
-  Future<Unit> call() => _userRepository.logout();
+  Future<void> call() => _userRepository.logout();
 }

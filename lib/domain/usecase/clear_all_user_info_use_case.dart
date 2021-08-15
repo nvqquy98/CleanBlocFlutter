@@ -1,4 +1,3 @@
-import '../entity/unit.dart';
 import 'package:injectable/injectable.dart';
 
 import '../repository/user_repository.dart';
@@ -9,5 +8,5 @@ class ClearAllUserInfoUseCase {
 
   const ClearAllUserInfoUseCase(this._userRepository);
 
-  Future<Unit> call() => _userRepository.clearAllUserInfo();
+  Future<void> call() => _userRepository.clearAllUserInfo();
 }

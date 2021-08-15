@@ -14,7 +14,6 @@ abstract class ServiceModule {
   @preResolve
   Future<Store> getStore() async {
     final dir = await getApplicationDocumentsDirectory();
-    return Store(getObjectBoxModel(),
-        directory: '${dir.path}/${DatabaseConfig.databaseName}');
+    return Store(getObjectBoxModel(), directory: '${dir.path}/${DatabaseConfig.databaseName}');
   }
 }

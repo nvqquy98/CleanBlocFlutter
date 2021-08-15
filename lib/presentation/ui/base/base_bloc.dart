@@ -1,8 +1,7 @@
+import '../../../shared/helper/stream/dispose_bag.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../../utils/logic_utils.dart';
 
 abstract class BaseBloc extends ChangeNotifier {
   final DisposeBag disposeBag = DisposeBag();
@@ -15,14 +14,11 @@ abstract class BaseBloc extends ChangeNotifier {
 
   Stream<bool> get loadingStream => _loadingSubject.stream;
 
-  Stream<T> executeFuture<T>(Future<T> future,
-      {bool showLoading = true, bool showError = true}) {
-    return executeStream(future.asStream(),
-        showLoading: showLoading, showError: showError);
+  Stream<T> executeFuture<T>(Future<T> future, {bool showLoading = true, bool showError = true}) {
+    return executeStream(future.asStream(), showLoading: showLoading, showError: showError);
   }
 
-  Stream<T> executeStream<T>(Stream<T> stream,
-      {bool showLoading = true, bool showError = true}) {
+  Stream<T> executeStream<T>(Stream<T> stream, {bool showLoading = true, bool showError = true}) {
     return stream.doOnListen(() {
       if (showLoading) emitLoading(true);
     }).doOnError((error, _) {
@@ -33,11 +29,11 @@ abstract class BaseBloc extends ChangeNotifier {
   }
 
   void emitError(Object error) {
-    _errorSubject.addSafely(error);
+    _errorSubject.add(error);
   }
 
   void emitLoading(bool isLoading) {
-    _loadingSubject.addSafely(isLoading);
+    _loadingSubject.add(isLoading);
   }
 
   /// ChangeNotifier call dispose()

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'base_remote_data.dart';
+import 'base/base_remote_data.dart';
 
 part 'remote_image_url_data.freezed.dart';
 part 'remote_image_url_data.g.dart';

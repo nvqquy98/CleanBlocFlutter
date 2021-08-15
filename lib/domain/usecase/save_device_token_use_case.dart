@@ -7,6 +7,5 @@ class SaveDeviceTokenUseCase {
 
   SaveDeviceTokenUseCase(this._userRepository);
 
-  Future<bool> call(String deviceToken) =>
-      _userRepository.saveDeviceToken(deviceToken);
+  Future<bool> call(String deviceToken) => _userRepository.saveDeviceToken(deviceToken);
 }

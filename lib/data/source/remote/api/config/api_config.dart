@@ -2,6 +2,9 @@ import '../../../../../build_config.dart';
 
 class ApiConfig {
   const ApiConfig._();
+  static const connectTimeout = 30000;
+  static const receiveTimeout = 30000;
+  static const sendTimeout = 30000;
 
   static const _baseUrlDev = 'https://api.dev.chatwork.com/api/';
   static const _baseUrlStg = 'https://api.stg.facebook.com/api/';

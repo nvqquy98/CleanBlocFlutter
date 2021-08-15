@@ -3,11 +3,10 @@ import 'package:injectable/injectable.dart';
 import '../local_image_url_data.dart';
 import '../../../../../../domain/entity/image_url.dart';
 
-import 'base_local_data_mapper.dart';
+import 'base/base_local_data_mapper.dart';
 
 @Injectable()
-class LocalImageUrlDataMapper
-    extends BaseLocalDataMapper<LocalImageUrlData, ImageUrl>
+class LocalImageUrlDataMapper extends BaseLocalDataMapper<LocalImageUrlData, ImageUrl>
     with LocalDataMapperMixin {
   @override
   ImageUrl mapToEntity(LocalImageUrlData data) {
@@ -16,7 +15,6 @@ class LocalImageUrlDataMapper
 
   @override
   LocalImageUrlData mapToLocalData(ImageUrl entity) {
-    return LocalImageUrlData(
-        origin: entity.origin, lg: entity.lg, md: entity.md, sm: entity.sm);
+    return LocalImageUrlData(origin: entity.origin, lg: entity.lg, md: entity.md, sm: entity.sm);
   }
 }

@@ -7,13 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
 import 'build_config.dart';
-import 'data/source/remote/api/config/http_request_log_config.dart';
+import 'data/source/remote/api/middleware/custom_log_interceptor.dart';
 import 'di/di.dart';
 import 'presentation/helper/deeplink/deep_link.dart';
 import 'presentation/helper/firebase_messaging/firebase_messaging.dart';
 import 'presentation/ui/app.dart';
-import 'utils/stream/dispose_bag.dart';
-import 'utils/stream/stream_logger.dart';
+import 'shared/helper/stream/dispose_bag.dart';
+import 'shared/helper/stream/stream_logger.dart';
 
 class App {
   static run() async {
@@ -31,20 +31,18 @@ class App {
     _configLogging();
 
     await Future.wait([
-      SystemChrome.setEnabledSystemUIOverlays(
-          [SystemUiOverlay.bottom, SystemUiOverlay.top]),
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]),
       BuildConfig.getPackageName(),
       BuildConfig.getVersionCode(),
       BuildConfig.getVersionName(),
-      Firebase.initializeApp().then(
-          (value) => GetIt.instance.get<FirebaseMessagingManager>().init()),
+      Firebase.initializeApp()
+          .then((value) => GetIt.instance.get<FirebaseMessagingManager>().init()),
     ]);
   }
 
   static _runMyApp() async {
     final deepLinkManager = GetIt.instance.get<DeepLinkManager>();
-    final deepLinkResult =
-        await deepLinkManager.getInitialDeepLink().catchError((e) => null);
+    final deepLinkResult = await deepLinkManager.getInitialDeepLink().catchError((e) => null);
     runApp(MyApp(deepLinkResult));
   }
 

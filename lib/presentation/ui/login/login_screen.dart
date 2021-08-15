@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import '../../../domain/exception/remote_exception.dart';
+import '../../../shared/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../build_config.dart';
-import '../../../data/source/remote/api/error/http_request_exception.dart';
 import '../../../generated/l10n.dart';
-import '../../../utils/logic_utils.dart';
 import '../../router/app_router.gr.dart';
 import '../base/base_state.dart';
 import '../custom_view/button/app_button.dart';
@@ -101,7 +101,10 @@ class _LoginScreenState extends BaseState<LoginScreen, LoginBloc> {
   }
 
   @override
-  void onServerError(HttpRequestException exception) {
+  void onServerError(
+    BuildContext context,
+    RemoteException exception,
+  ) {
     bloc.funcOnServerError(exception);
   }
 }
@@ -118,11 +121,12 @@ class _LoginButtonState extends State<LoginButton> {
         stream: context.read<LoginBloc>().streamIsButtonLoginEnable,
         builder: (context, snapshot) {
           return AppButton(
-              width: Dimens.w(265),
-              isEnable: snapshot.data ?? false,
-              text: S.of(context).login,
-              enableGradient: AppColors.gradient,
-              onPressed: context.read<LoginBloc>().funcSubmit);
+            width: Dimens.w(265),
+            isEnable: snapshot.data ?? false,
+            text: S.of(context).login,
+            enableGradient: AppColors.gradient,
+            onPressed: context.read<LoginBloc>().funcSubmit,
+          );
         });
   }
 }
@@ -133,9 +137,7 @@ class ErrorText extends StatelessWidget {
     return StreamBuilder<String?>(
         stream: context.read<LoginBloc>().streamError,
         builder: (context, snapshot) {
-          return snapshot.data != null
-              ? FormErrorText(error: snapshot.data!)
-              : Container();
+          return snapshot.data != null ? FormErrorText(error: snapshot.data!) : Container();
         });
   }
 }

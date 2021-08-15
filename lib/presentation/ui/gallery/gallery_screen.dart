@@ -4,7 +4,7 @@ import 'package:flutter/material.dart' hide Notification;
 import 'package:provider/provider.dart';
 
 import '../../../domain/entity/notification.dart';
-import '../base/base_state_and_utils.dart';
+import '../base/base_state.dart';
 import '../edit_profile/profile_shared_bloc.dart';
 import 'gallery_bloc.dart';
 

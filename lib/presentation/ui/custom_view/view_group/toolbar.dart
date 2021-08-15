@@ -7,8 +7,7 @@ class Toolbar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool? isCloseButton;
 
-  const Toolbar({Key? key, this.title = '', this.isCloseButton})
-      : super(key: key);
+  const Toolbar({Key? key, this.title = '', this.isCloseButton}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +21,17 @@ class Toolbar extends StatelessWidget with PreferredSizeWidget {
       ),
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: isCloseButton != null ? IconButton(
-        icon: Icon(
-          isCloseButton! ? Icons.close : Icons.arrow_back,
-          color: AppColors.black,
-        ),
-        onPressed: () {
-          AutoRouter.of(context).pop();
-        },
-      ) : null,
+      leading: isCloseButton != null
+          ? IconButton(
+              icon: Icon(
+                isCloseButton! ? Icons.close : Icons.arrow_back,
+                color: AppColors.black,
+              ),
+              onPressed: () {
+                AutoRouter.of(context).pop();
+              },
+            )
+          : null,
     );
   }
 
