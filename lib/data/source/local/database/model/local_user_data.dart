@@ -1,6 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 
-import 'base_local_data.dart';
+import 'base/base_local_data.dart';
 import 'local_image_url_data.dart';
 
 @Entity()
@@ -11,6 +11,5 @@ class LocalUserData extends BaseLocalData {
   String email;
   final avatar = ToOne<LocalImageUrlData>();
 
-  LocalUserData(
-      {required this.id, required this.nickname, required this.email});
+  LocalUserData({required this.id, required this.nickname, required this.email});
 }

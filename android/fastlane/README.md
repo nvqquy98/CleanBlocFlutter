@@ -41,11 +41,16 @@ Runs all the tests
 fastlane android distributeDevelop
 ```
 Submit a new Develop Build to Firebase Distribution
-### android deploy
+### android distributeStaging
 ```
-fastlane android deploy
+fastlane android distributeStaging
 ```
-Deploy a new version to the Google Play
+Submit a new Staging Build to Firebase Distribution
+### android distributeProduction
+```
+fastlane android distributeProduction
+```
+Submit a new Production Build to Firebase Distribution
 
 ----
 

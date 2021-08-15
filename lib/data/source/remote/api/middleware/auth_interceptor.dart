@@ -1,16 +1,16 @@
 import 'dart:collection';
 
+import '../services/refresh_token_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../local/preference/app_preferences.dart';
 import '../config/api_config.dart';
-import '../none_auth_api.dart';
 
 class AuthInterceptor extends InterceptorsWrapper {
   final AppPreferences appPreferences = GetIt.instance.get<AppPreferences>();
-  final NoneAuthApi noneAuthApi = GetIt.instance.get<NoneAuthApi>();
+  final RefreshTokenService refreshTokenService = GetIt.instance.get<RefreshTokenService>();
   var _isRefreshing = false;
   final _queue = Queue<Tuple2<RequestOptions, ErrorInterceptorHandler>>();
 
@@ -35,8 +35,7 @@ class AuthInterceptor extends InterceptorsWrapper {
     headers[ApiConfig.jwtAuthorization] = '${ApiConfig.bearer} $accessToken';
   }
 
-  void _onExpiredToken(
-      RequestOptions options, ErrorInterceptorHandler handler) {
+  void _onExpiredToken(RequestOptions options, ErrorInterceptorHandler handler) {
     _queue.addLast(Tuple2(options, handler));
     if (!_isRefreshing) {
       _isRefreshing = true;
@@ -52,21 +51,18 @@ class AuthInterceptor extends InterceptorsWrapper {
 
   Future<String> _refreshToken() async {
     _isRefreshing = true;
-    final refreshTokenResponse =
-        await noneAuthApi.refreshToken(appPreferences.refreshToken);
+    final refreshTokenResponse = await refreshTokenService.refreshToken(appPreferences.refreshToken);
     await Future.wait([
-      appPreferences.saveAccessToken(
-          refreshTokenResponse.data.tokenInfo?.accessToken ?? ''),
-      appPreferences.saveRefreshToken(
-          refreshTokenResponse.data.tokenInfo?.refreshToken ?? ''),
+      appPreferences.saveAccessToken(refreshTokenResponse.data.tokenInfo?.accessToken ?? ''),
+      appPreferences.saveRefreshToken(refreshTokenResponse.data.tokenInfo?.refreshToken ?? ''),
     ]);
 
     return refreshTokenResponse.data.tokenInfo?.accessToken ?? '';
   }
 
   Future<void> _onRefreshTokenSuccess(String newToken) async {
-    await Future.wait(_queue.map((requestInfo) =>
-        _requestWithNewToken(requestInfo.item1, requestInfo.item2, newToken)));
+    await Future.wait(_queue.map(
+        (requestInfo) => _requestWithNewToken(requestInfo.item1, requestInfo.item2, newToken)));
   }
 
   void _onRefreshTokenError(Object? error) {
@@ -77,13 +73,12 @@ class AuthInterceptor extends InterceptorsWrapper {
     });
   }
 
-  Future<void> _requestWithNewToken(RequestOptions options,
-      ErrorInterceptorHandler handler, String newAccessToken) {
+  Future<void> _requestWithNewToken(
+      RequestOptions options, ErrorInterceptorHandler handler, String newAccessToken) {
     _putAccessToken(options.headers, newAccessToken);
-    return noneAuthApi
+    return refreshTokenService
         .fetch(options)
         .then((response) => handler.resolve(response))
-        .catchError(
-            (e) => handler.next(DioError(requestOptions: options, error: e)));
+        .catchError((e) => handler.next(DioError(requestOptions: options, error: e)));
   }
 }

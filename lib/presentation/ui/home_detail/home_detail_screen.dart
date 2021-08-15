@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../base/base_state_and_utils.dart';
+import '../base/base_state.dart';
+import '../../../shared/extensions.dart';
 import '../main/main_bloc.dart';
 import '../users/users_bottom_sheet.dart';
 import 'home_detail_bloc.dart';
@@ -29,15 +30,14 @@ class _HomeDetailState extends BaseState<HomeDetailScreen, HomeDetailBloc> {
               }),
           StreamBuilder<int>(
               stream: context.read<MainBloc>().streamCounter,
-              initialData:
-                  context.read<MainBloc>().streamCounter.values.firstOrNull,
+              initialData: context.read<MainBloc>().streamCounter.values.firstOrNull,
               builder: (context, snapshot) {
                 return Text('Counter = ${snapshot.data}');
               }),
           ElevatedButton(
               onPressed: () {
-                context.showBottomSheet((_) => ChangeNotifierProvider.value(
-                    value: bloc, child: UsersBottomSheet()));
+                context.showBottomSheet(
+                    (_) => ChangeNotifierProvider.value(value: bloc, child: UsersBottomSheet()));
               },
               child: const Text('show bottom sheet'))
         ],

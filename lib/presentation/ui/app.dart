@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
-import '../../utils/logic_utils.dart';
+import '../../shared/extensions.dart';
 import '../helper/deeplink/deep_link.dart';
 import '../router/app_router.gr.dart';
 import '../router/app_router_observer.dart';
@@ -31,10 +31,7 @@ class _MyAppState extends BaseState<MyApp, AppBloc> {
   List<PageRouteInfo> _parseDeepLinkResult() {
     final deepLinkResult = widget.deepLinkResult;
     if (deepLinkResult is ResetPasswordDeepLink) {
-      return [
-        ResetPasswordScreenRoute(
-            resetPasswordToken: deepLinkResult.resetPasswordToken)
-      ];
+      return [ResetPasswordScreenRoute(resetPasswordToken: deepLinkResult.resetPasswordToken)];
     }
 
     return [_launcher];
@@ -52,8 +49,8 @@ class _MyAppState extends BaseState<MyApp, AppBloc> {
 
     _deepLinkManager.foregroundDeepLinkStream().listen((deepLinkResult) {
       if (deepLinkResult is ResetPasswordDeepLink) {
-        _appRouter.push(ResetPasswordScreenRoute(
-            resetPasswordToken: deepLinkResult.resetPasswordToken));
+        _appRouter
+            .push(ResetPasswordScreenRoute(resetPasswordToken: deepLinkResult.resetPasswordToken));
       }
     }).disposeBy(disposeBag);
   }
@@ -79,16 +76,14 @@ class _MyAppState extends BaseState<MyApp, AppBloc> {
                 title: 'Base Clean Flutter',
                 debugShowCheckedModeBanner: false,
                 darkTheme: AppThemes.darkTheme,
-                themeMode:
-                    snapshot.data == true ? ThemeMode.dark : ThemeMode.light,
+                themeMode: snapshot.data == true ? ThemeMode.dark : ThemeMode.light,
                 theme: AppThemes.lightTheme,
                 routerDelegate: _appRouter.delegate(
                     initialRoutes: _parseDeepLinkResult(),
                     navigatorObservers: () => [AppRouterObserver(context)]),
                 routeInformationParser: _appRouter.defaultRouteParser(),
                 localeResolutionCallback: (deviceLocale, supportedLocales) {
-                  if (deviceLocale != null &&
-                      supportedLocales.contains(deviceLocale)) {
+                  if (deviceLocale != null && supportedLocales.contains(deviceLocale)) {
                     return deviceLocale;
                   } else {
                     return const Locale('en', 'US');

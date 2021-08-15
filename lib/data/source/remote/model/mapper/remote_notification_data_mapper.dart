@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../domain/entity/notification.dart';
 import '../remote_notification_data.dart';
-import 'base_remote_data_mapper.dart';
+import 'base/base_remote_data_mapper.dart';
 
 @Injectable()
 class RemoteNotificationDataMapper

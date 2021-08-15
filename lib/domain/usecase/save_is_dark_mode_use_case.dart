@@ -8,6 +8,5 @@ class SaveIsDarkModeUseCase {
 
   SaveIsDarkModeUseCase(this._appRepository);
 
-  Future<bool> call(bool isDarkMode) =>
-      _appRepository.saveIsDarkMode(isDarkMode);
+  Future<bool> call(bool isDarkMode) => _appRepository.saveIsDarkMode(isDarkMode);
 }

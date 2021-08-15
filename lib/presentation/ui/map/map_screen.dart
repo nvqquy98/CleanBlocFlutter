@@ -2,7 +2,7 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../base/base_state_and_utils.dart';
+import '../base/base_state.dart';
 import '../main/main_bloc.dart';
 import 'map_bloc.dart';
 

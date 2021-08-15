@@ -1,19 +1,29 @@
-import '../config/http_request_log_config.dart';
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 
-import '../../../../../utils/log/log_utils.dart';
+import '../error/http_request_exception_mapper.dart';
+
+class HttpRequestLogConfig {
+  static bool enableLogInterceptor = true;
+}
 
 class CustomLogInterceptor extends InterceptorsWrapper {
+  final HttpRequestExceptionMapper httpRequestExceptionMapper;
+
   final bool requestHeader;
   final bool requestBody;
   final bool successResponse;
   final bool errorResponse;
 
-  CustomLogInterceptor(
-      {this.requestHeader = true,
-      this.requestBody = true,
-      this.successResponse = true,
-      this.errorResponse = true});
+  CustomLogInterceptor({
+    this.requestHeader = true,
+    this.requestBody = true,
+    this.successResponse = true,
+    this.errorResponse = true,
+    required this.httpRequestExceptionMapper
+  });
+
+  static final _logger = Logger(printer: PrettyPrinter(methodCount: 0));
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -22,18 +32,20 @@ class CustomLogInterceptor extends InterceptorsWrapper {
       return;
     }
 
-    print('************ Request ************');
-    printKV('Request', '${options.method} ${options.uri}');
+    final log = <String>[];
+    log.add('************ Request ************');
+    log.add('Request: ${options.method} ${options.uri}');
     if (requestHeader && options.headers.isNotEmpty) {
-      print('Request Headers:');
-      options.headers.forEach((key, v) => printKV(' $key', v));
+      log.add('Request Headers:');
+      options.headers.forEach((key, v) => log.add('$key: $v'));
     }
 
     if (requestBody && options.data != null) {
-      print('Request Body:');
-      _printAll(options.data);
+      log.add('Request Body:');
+      log.add(options.data.toString());
     }
 
+    _logger.d(log.join('\n'));
     handler.next(options);
   }
 
@@ -44,14 +56,15 @@ class CustomLogInterceptor extends InterceptorsWrapper {
       return;
     }
 
-    print('************ Response ************');
-    printKV('Status Code',
-        '${response.requestOptions.method} ${response.requestOptions.uri} ${response.statusCode}');
+    final log = <String>[];
+    log.add('************ Request Response ************');
+    log.add('${response.requestOptions.method} ${response.requestOptions.uri} ${response.statusCode}');
 
     if (successResponse) {
-      print('Success Response:');
-      _printAll(response.toString());
+      log.add(response.toString());
     }
+
+    _logger.i(log.join('\n'));
 
     handler.next(response);
   }
@@ -63,22 +76,17 @@ class CustomLogInterceptor extends InterceptorsWrapper {
       return;
     }
 
-    print('************ Error ************');
-    if (err.response != null) {
-      printKV('Status Code',
-          '${err.requestOptions.method} ${err.requestOptions.uri} ${err.response!.statusCode}');
-      if (errorResponse && err.response!.data != null) {
-        print('Error Response:');
-        _printAll(err.response!.toString());
-      } else {
-        print('DioError: ${err.error}');
-      }
+    final log = <String>[];
+
+    log.add('************ Request Error ************');
+    log.add('${err.requestOptions.method} ${err.requestOptions.uri} ${err.response?.statusCode ?? 'unknown status code'}');
+
+    if (errorResponse) {
+      log.add(httpRequestExceptionMapper.map(err).toString());
     }
 
-    handler.next(err);
-  }
+    _logger.e(log.join('\n'));
 
-  void _printAll(msg) {
-    msg.toString().split('\n').forEach(print);
+    handler.next(err);
   }
 }

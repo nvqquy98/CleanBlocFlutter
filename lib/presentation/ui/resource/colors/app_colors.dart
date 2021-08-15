@@ -56,6 +56,5 @@ class AppColors {
   static const Color darkIndigo24 = Color(0xFF3D0D1A45);
   static const Color darkGrey = Color(0xFF252A2B);
   static final Color downriver8 = const Color(0xFF0A2953).withOpacity(0.08);
-  static const gradient =
-      LinearGradient(colors: [AppColors.cerulean, AppColors.persianGreen]);
+  static const gradient = LinearGradient(colors: [AppColors.cerulean, AppColors.persianGreen]);
 }

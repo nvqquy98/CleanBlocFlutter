@@ -10,8 +10,7 @@ class BasicAuthInterceptor extends InterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (BuildConfig.flavor == Flavor.develop) {
       options.headers[ApiConfig.authorization] = _basicAuthenticationHeader(
-          ApiConfig.basicAuthorizationName,
-          ApiConfig.basicAuthorizationPassword);
+          ApiConfig.basicAuthorizationName, ApiConfig.basicAuthorizationPassword);
     }
     return super.onRequest(options, handler);
   }

@@ -30,8 +30,7 @@ class _PrimaryInputLayoutState extends State<PrimaryInputLayout> {
   final focusNode = FocusNode();
   bool _isObscure = true;
 
-  bool get _isPasswordField =>
-      widget.inputType == TextInputType.visiblePassword;
+  bool get _isPasswordField => widget.inputType == TextInputType.visiblePassword;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +68,7 @@ class _PrimaryInputLayoutState extends State<PrimaryInputLayout> {
                       ? IconButton(
                           padding: const EdgeInsets.symmetric(vertical: 0),
                           splashColor: Colors.transparent,
-                          icon: Icon(_isObscure
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                          icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
                           onPressed: () {
                             setState(() {
                               _isObscure = !_isObscure;

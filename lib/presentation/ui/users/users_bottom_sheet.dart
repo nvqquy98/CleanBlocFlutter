@@ -22,11 +22,10 @@ class _UsersBottomSheetState extends BaseState<UsersBottomSheet, UsersBloc> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StreamBuilder<int>(
-            stream: context.read<HomeDetailBloc>().demoData,
-            builder: (context, snapshot) {
-              return Text('receive data from home detail ${snapshot.data}');
-            }
-          ),
+              stream: context.read<HomeDetailBloc>().demoData,
+              builder: (context, snapshot) {
+                return Text('receive data from home detail ${snapshot.data}');
+              }),
           ElevatedButton(
               onPressed: () {
                 context.read<HomeDetailBloc>().demoController.add(9999);
@@ -40,11 +39,10 @@ class _UsersBottomSheetState extends BaseState<UsersBottomSheet, UsersBloc> {
               child: const Text('Go to gallery')),
           ElevatedButton(
               onPressed: () {
-                  context.read<MainBloc>().funcResetCounter();
-                  AutoRouter.of(context).pop();
+                context.read<MainBloc>().funcResetCounter();
+                AutoRouter.of(context).pop();
               },
               child: const Text('Delete counter'))
-        ]
-    );
+        ]);
   }
 }

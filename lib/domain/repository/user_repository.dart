@@ -1,24 +1,18 @@
-
-import '../entity/unit.dart';
 import '../entity/user.dart';
 
 abstract class UserRepository {
-  Future<Unit> login(String email, String password);
+  Future<void> login(String email, String password);
 
-  Future<Unit> logout();
+  Future<void> logout();
 
   Future<User> getCurrentUser();
 
-  Future<Unit> changePassword(String currentPassword, String newPassword);
+  Future<void> changePassword(String currentPassword, String newPassword);
 
-  Future<Unit> forgotPassword(String email);
+  Future<void> forgotPassword(String email);
 
-  Future<Unit> register(
-      String nickname,
-      String email,
-      String password,
-      String? gender,
-      String? avatarFilePath);
+  Future<void> register(
+      String nickname, String email, String password, String? gender, String? avatarFilePath);
 
   bool get isLoggedIn;
 
@@ -30,7 +24,7 @@ abstract class UserRepository {
 
   User getUserPreference();
 
-  Future<Unit> clearAllUserInfo();
+  Future<void> clearAllUserInfo();
 
   Future<bool> saveDeviceToken(String deviceToken);
 }

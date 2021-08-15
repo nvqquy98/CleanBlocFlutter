@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'base_entity.dart';
+import 'base/base_entity.dart';
 import 'image_url.dart';
 
 part 'user.freezed.dart';

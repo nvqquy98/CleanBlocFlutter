@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../router/app_router.gr.dart';
-import '../base/base_state_and_utils.dart';
+import '../base/base_state.dart';
 import 'edit_profile_bloc.dart';
 import 'profile_shared_bloc.dart';
 
@@ -13,8 +13,7 @@ class EditProfileScreen extends StatefulWidget {
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState
-    extends BaseState<EditProfileScreen, EditProfileBloc> {
+class _EditProfileScreenState extends BaseState<EditProfileScreen, EditProfileBloc> {
   @override
   Widget build(BuildContext context) {
     return Center(

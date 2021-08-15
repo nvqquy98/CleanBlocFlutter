@@ -1,4 +1,4 @@
-import '../../utils/view_utils.dart';
+import '../../shared/extensions.dart';
 import 'package:flutter/material.dart';
 
 class AppRouterObserver extends NavigatorObserver {

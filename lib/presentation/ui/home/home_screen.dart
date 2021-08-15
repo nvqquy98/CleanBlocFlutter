@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../router/app_router.gr.dart';
-import '../base/base_state_and_utils.dart';
+import '../base/base_state.dart';
 import '../main/main_bloc.dart';
 import 'home_bloc.dart';
+import '../../../shared/extensions.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -38,8 +39,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
   }
 
   void _scrollToTop() {
-    _scrollController.animateTo(0,
-        duration: const Duration(seconds: 2), curve: Curves.easeIn);
+    _scrollController.animateTo(0, duration: const Duration(seconds: 2), curve: Curves.easeIn);
   }
 
   @override
@@ -48,8 +48,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
       children: [
         StreamBuilder<int>(
             stream: context.read<MainBloc>().streamCounter,
-            initialData:
-                context.read<MainBloc>().streamCounter.values.firstOrNull,
+            initialData: context.read<MainBloc>().streamCounter.values.firstOrNull,
             builder: (context, snapshot) {
               return Text('Counter = ${snapshot.data}');
             }),
@@ -59,8 +58,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
               itemCount: 100,
               itemBuilder: (context, index) {
                 return InkWell(
-                  child: SizedBox(
-                      height: Dimens.h(50), child: Center(child: Text('$index'))),
+                  child: SizedBox(height: Dimens.h(50), child: Center(child: Text('$index'))),
                   onTap: () {
                     context.read<MainBloc>().funcIncreaseCounter(index);
                     AutoRouter.of(context).push(const HomeDetailScreenRoute());

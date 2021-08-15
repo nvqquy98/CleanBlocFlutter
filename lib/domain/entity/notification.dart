@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'base_entity.dart';
+import 'base/base_entity.dart';
 
 part 'notification.freezed.dart';
 

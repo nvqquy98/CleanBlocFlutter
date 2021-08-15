@@ -1,10 +1,10 @@
 import 'package:injectable/injectable.dart';
 
 import '../../../../../domain/entity/user.dart';
-import '../../api/request/request_constants.dart';
+import '../../../../../domain/constants/remote_constants.dart';
 import '../remote_avatar_data.dart';
 import '../remote_user_data.dart';
-import 'base_remote_data_mapper.dart';
+import 'base/base_remote_data_mapper.dart';
 import 'remote_image_url_data_mapper.dart';
 
 @Injectable()
@@ -31,8 +31,7 @@ class RemoteUserDataMapper extends BaseRemoteDataMapper<RemoteUserData, User>
       id: entity.id,
       email: entity.email,
       nickname: entity.nickname,
-      avatar: RemoteAvatarData(
-          url: _remoteImageUrlDataMapper.mapToRemoteData(entity.avatar)),
+      avatar: RemoteAvatarData(url: _remoteImageUrlDataMapper.mapToRemoteData(entity.avatar)),
       gender: _genderToString(entity.gender),
     );
   }
@@ -40,11 +39,11 @@ class RemoteUserDataMapper extends BaseRemoteDataMapper<RemoteUserData, User>
   String? _genderToString(Gender gender) {
     switch (gender) {
       case Gender.male:
-        return GenderConstants.male;
+        return ServerGenderConstants.male;
       case Gender.female:
-        return GenderConstants.female;
+        return ServerGenderConstants.female;
       case Gender.other:
-        return GenderConstants.other;
+        return ServerGenderConstants.other;
       default:
         return null;
     }
@@ -52,11 +51,11 @@ class RemoteUserDataMapper extends BaseRemoteDataMapper<RemoteUserData, User>
 
   Gender _stringToGender(String? gender) {
     switch (gender) {
-      case GenderConstants.male:
+      case ServerGenderConstants.male:
         return Gender.male;
-      case GenderConstants.female:
+      case ServerGenderConstants.female:
         return Gender.female;
-      case GenderConstants.other:
+      case ServerGenderConstants.other:
         return Gender.other;
       default:
         return Gender.none;

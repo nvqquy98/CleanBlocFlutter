@@ -13,8 +13,8 @@ import '../../../data/source/remote/model/mapper/remote_notification_data_mapper
 import '../../../data/source/remote/model/remote_notification_data.dart';
 import '../../../domain/entity/notification.dart';
 import '../../../domain/usecase/save_device_token_use_case.dart';
-import '../../../utils/file/file_utils.dart';
-import '../../../utils/log/log_utils.dart';
+import '../../../shared/utils/file_utils.dart';
+import '../../../shared/utils/log_utils.dart';
 import 'firebase_messaging_constants.dart';
 
 @LazySingleton()
@@ -33,8 +33,7 @@ class FirebaseMessagingManager {
   /// output
   Stream<Notification> get notification => _notificationController.stream;
 
-  FirebaseMessagingManager(
-      this._saveDeviceTokenUseCase, this._remoteNotificationDataMapper);
+  FirebaseMessagingManager(this._saveDeviceTokenUseCase, this._remoteNotificationDataMapper);
 
   /// setup flutter_local_notifications
   Future<void> init() async {
@@ -70,16 +69,14 @@ class FirebaseMessagingManager {
     /// We use this channel in the `AndroidManifest.xml` file to override the
     /// default FCM channel to enable heads up notifications.
     await FlutterLocalNotificationsPlugin()
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(const AndroidNotificationChannel(
             _channelId, _channelName, _channelDescription,
             importance: Importance.high));
 
     /// Update the iOS foreground notification presentation options to allow
     /// heads up notifications.
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
@@ -149,8 +146,8 @@ class FirebaseMessagingManager {
   }
 
   void _emitNotification(Map<String, dynamic> map) {
-    final notification = _remoteNotificationDataMapper
-        .mapToEntity(RemoteNotificationData.fromJson(map));
+    final notification =
+        _remoteNotificationDataMapper.mapToEntity(RemoteNotificationData.fromJson(map));
     _notificationController.add(notification);
   }
 
@@ -159,8 +156,7 @@ class FirebaseMessagingManager {
     final data = remoteMessage.data;
     File? imageFile;
     if (data.containsKey(FirebaseMessagingConstants.firebaseKeyImage)) {
-      imageFile = await getImageFileFromUrl(
-          data[FirebaseMessagingConstants.firebaseKeyImage]);
+      imageFile = await getImageFileFromUrl(data[FirebaseMessagingConstants.firebaseKeyImage]);
     }
 
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -183,8 +179,7 @@ class FirebaseMessagingManager {
     final iOSPlatformChannelSpecifics = const IOSNotificationDetails();
 
     final platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+        android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
 
     await FlutterLocalNotificationsPlugin()
         .show(
@@ -194,8 +189,7 @@ class FirebaseMessagingManager {
           platformChannelSpecifics,
           payload: jsonEncode(data),
         )
-        .onError((error, stackTrace) =>
-            printKV(tag, 'Can not show notification cause $error'));
+        .onError((error, stackTrace) => printKV(tag, 'Can not show notification cause $error'));
   }
 
   int get _randomNotificationId => Random().nextInt(pow(2, 31).toInt() - 1);
@@ -206,6 +200,5 @@ Future _handleBackgroundMessage(RemoteMessage remoteMessage) async {
   /// If you're going to use other Firebase services in the background, such as Firestore,
   /// make sure you call `Firebase.initializeApp()` before using other Firebase services.
   // await Firebase.initializeApp();
-  printKV(FirebaseMessagingManager.tag,
-      'onBackgroundMessage ${remoteMessage.notification?.title}');
+  printKV(FirebaseMessagingManager.tag, 'onBackgroundMessage ${remoteMessage.notification?.title}');
 }
